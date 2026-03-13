@@ -200,7 +200,7 @@ Dark matter halos *are* failed synchronization, priced and allocated by the opti
 
 ### 7.2 Complementary Slackness and Renzo's Rule
 
-Renzo's Rule — every baryonic feature has a rotation-curve counterpart — follows from local complementary slackness ([companion paper §4.3](intersections/joven_stick_slip_dark_matter.md)). In the synchronization framing: a local baryonic feature changes the local impedance, which changes the local coupling strength, which changes the local synchronization deficit, which changes the local shadow price. The coupling is structural because the Rosin is local.
+Renzo's Rule — every baryonic feature has a rotation-curve counterpart — follows from local complementary slackness ([companion paper §4.3](intersections/joven_stick_slip_dark_matter.md)). In the synchronization framing: a local baryonic feature changes the local impedance, which changes the local coupling strength, which changes the local synchronization deficit, which changes the local shadow price. The coupling is structural because the Rosin is local. The [formal derivation](renzos_rule_derivation.md) discharges the conditional from the companion paper by identifying the optimization structure as the Einstein-Hilbert action itself, and proves the inverse: at the Kuramoto-Einstein fixed point, $\rho_{\text{dark}}$ is a functional of $\rho_{\text{bary}}$, so every rotation curve feature has a baryonic origin.
 
 ### 7.3 Cone Topology
 

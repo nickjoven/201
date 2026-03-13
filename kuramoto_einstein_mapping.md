@@ -281,9 +281,9 @@ The explicit mapping imposes requirements in both directions:
 
 ## 7. Next Steps
 
-This mapping is kinematic — it identifies the fields and their derivatives. What remains:
+This mapping is kinematic — it identifies the fields and their derivatives. The [formal derivation of Renzo's Rule](renzos_rule_derivation.md) uses this mapping to close three gaps: specifying the variational principle (Einstein-Hilbert action in ADM form), resolving the primal-dual coupling (Kuramoto self-consistency fixed point), and proving the inverse direction ($\rho_{\text{dark}}$ is a functional of $\rho_{\text{bary}}$). What remains beyond that:
 
-1. **Dynamical equivalence.** Show that the Kuramoto evolution equations, with coupling kernel = gravitational Green's function and $r \leftrightarrow N$, reproduce the ADM evolution equations as an identity, not just a structural parallel. This requires fixing the normalization and verifying all numerical prefactors.
+1. **Dynamical equivalence.** Show that the Kuramoto evolution equations, with coupling kernel = gravitational Green's function and $r \leftrightarrow N$, reproduce the ADM evolution equations as an identity, not just a structural parallel. This requires fixing the normalization and verifying all numerical prefactors. (The [Renzo's Rule derivation](renzos_rule_derivation.md) confirms the variational principle but does not verify prefactors.)
 
 2. **The Stribeck function.** The Kuramoto model uses $\sin(\psi - \theta)$ as the coupling function. The framework claims the vacuum has a Stribeck-type impedance. Replacing $\sin(\cdot)$ with a Stribeck-weighted coupling function and showing it reproduces MOND interpolation at the equation level would close the formal gap.
 
