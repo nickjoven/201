@@ -83,11 +83,13 @@ theoretical structure, from galaxy rotation curves to black holes to the CMB.
    [companion paper](intersections/joven_stick_slip_dark_matter.md) §4.3 and
    [formal derivation](renzos_rule_derivation.md).
 
-5. **Inverse Renzo's Rule from synchronization structure.** Every rotation curve
-   feature has a baryonic origin. At the Kuramoto-Einstein fixed point,
-   &rho;<sub>dark</sub> is a functional of &rho;<sub>bary</sub> via the
-   Green's function kernel, which smooths but cannot generate localized features.
-   See the [formal derivation](renzos_rule_derivation.md) §3.
+5. **Inverse Renzo's Rule: no phantom features.** Every localized rotation curve
+   feature has a baryonic origin. The Green's function of the Laplacian is a
+   smoothing kernel — it cannot sharpen or generate localized structure. Proved
+   from Poisson equation alone (no mapping dependence). See the
+   [formal derivation](renzos_rule_derivation.md) §3.3. Full inverse
+   (&rho;<sub>dark</sub> uniquely determined by &rho;<sub>bary</sub>) requires
+   fixed-point uniqueness, which is open (§7).
 
 6. **Flat rotation curves from conical geometry.** On a conical metric, Bessel
    modes yield *k* &prop; 1/*r* without any dark matter term (&lambda; = 0). See the

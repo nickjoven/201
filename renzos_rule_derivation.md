@@ -14,7 +14,7 @@ The [companion paper](intersections/joven_stick_slip_dark_matter.md) §4.3 deriv
 2. **The primal-dual coupling.** The companion notebook fixes the primal variables and updates only the dual. The coupled fixed-point — where the metric responds to $\lambda$ and $\lambda$ responds to the metric — is undemonstrated.
 3. **The inverse.** Renzo's Rule says baryonic features produce rotation curve features. The inverse — every rotation curve feature has a baryonic origin — requires ruling out phantom structure in $\lambda(r)$ that has no baryonic counterpart.
 
-The [Kuramoto-Einstein mapping](kuramoto_einstein_mapping.md) provides the missing ingredients. This document closes all three gaps.
+The [Kuramoto-Einstein mapping](kuramoto_einstein_mapping.md) provides ingredients toward all three. This document closes the first two cleanly and advances the third — but with a residual gap that we flag explicitly (§3.4).
 
 ---
 
@@ -136,35 +136,35 @@ where $\mathcal{F}$ is the Kuramoto self-consistency map and $K[r]$ indicates th
 
 **Existence:** The Kuramoto self-consistency equation on a compact manifold with smooth $\omega(x)$ and smooth coupling kernel has a fixed point by the Schauder fixed-point theorem (the map $\mathcal{F}$ is continuous on the convex, compact set $r \in [0, 1]$ for each $x$).
 
-**Uniqueness in the galactic regime:** For galaxies in quasi-static equilibrium (no mergers, settled rotation), the system is well past the transient. Numerical N-body simulations consistently produce unique equilibrium rotation curves for given baryonic distributions, providing empirical evidence that the fixed point is unique in this regime.
+**The uniqueness problem.** The Schauder theorem gives existence, not uniqueness. The inverse proof requires that $\rho_{\text{bary}}$ determines $\rho_{\text{dark}}$ — i.e., that the fixed point is unique. If multiple fixed points exist, different solutions could assign different $\rho_{\text{dark}}$ to the same $\rho_{\text{bary}}$, and the inverse would fail.
 
-**The critical consequence:** At the fixed point, $r(x)$ is a functional of $\omega(x)$ alone:
+We do not have a uniqueness proof. What we have:
 
-$$r(x) = r[\omega](x) = r[\rho_{\text{bary}}](x)$$
+1. **Empirical evidence.** N-body simulations consistently produce unique equilibrium rotation curves for given baryonic distributions. Galaxies in quasi-static equilibrium (no mergers, settled rotation) show no evidence of bistability.
 
-Because the coupling kernel at equilibrium is itself determined by the solution, and the solution is unique, the entire gravitational field — including the dark matter density — is determined by the baryonic distribution.
+2. **A stability argument that partially substitutes.** Even without global uniqueness, we can ask the weaker question: at any *stable* fixed point, can $\rho_{\text{dark}}$ generate features independently of $\rho_{\text{bary}}$? Stability means the system returns to the fixed point under small perturbations. A perturbation $\delta\rho_{\text{dark}}$ at $r_0$ with no baryonic source would need to be self-sustaining through the feedback loop $\delta\rho_{\text{dark}} \to \delta\gamma_{ij} \to \delta K \to \delta r \to \delta\rho_{\text{dark}}$. The Green's function kernel smooths at each step of this loop (see §3.3). A self-sustaining localized perturbation requires the loop gain to exceed unity at spatial frequencies corresponding to the feature scale — but the smoothing kernel suppresses high spatial frequencies. At a stable fixed point, the loop gain is below unity by definition. Therefore: **at any stable fixed point, $\rho_{\text{dark}}$ cannot sustain localized features without a localized baryonic source.**
 
-### 3.3 Ruling Out Phantom Features
+3. **The physical filter.** Unstable fixed points are not observed galaxies. A galaxy is a physical system that has relaxed to a stable equilibrium. The inverse Renzo's Rule is a claim about observed galaxies, not about all mathematical solutions. Restricting to stable fixed points is physically motivated, not an evasion.
 
-Now we can prove the inverse. The dark matter density is:
+**What this gives us:** At any stable fixed point, the dark matter density's *feature structure* is inherited from the baryonic distribution. This is weaker than "$\rho_{\text{dark}}$ is a functional of $\rho_{\text{bary}}$" (which requires uniqueness) but sufficient for the inverse: phantom features — localized structure in the rotation curve with no baryonic counterpart — are ruled out at stable equilibria.
+
+**What this does not give us:** A guarantee that the smooth *background level* of $\rho_{\text{dark}}$ is uniquely determined by $\rho_{\text{bary}}$. Multiple stable fixed points could in principle assign different smooth dark matter backgrounds to the same baryonic distribution. This would not violate the inverse Renzo's Rule (which concerns features, not backgrounds) but would mean the total dark matter mass is not uniquely predicted. A full uniqueness proof (§7) would close this.
+
+### 3.3 The Smoothing Argument (Independent of the Mapping)
+
+The following argument does not depend on the Kuramoto-Einstein dictionary. It uses only the structure of the Hamiltonian constraint and the Green's function of the Laplacian.
+
+The dark matter density is:
 
 $$\rho_{\text{dark}}(r) = \frac{1}{16\pi G}\left({}^{(3)}R + \mathcal{K}^2 - \mathcal{K}_{ij}\mathcal{K}^{ij}\right) - \rho_{\text{bary}}(r)$$
 
-The geometric terms on the right depend on $\gamma_{ij}$, which depends on $\rho_{\text{total}}$, which at the fixed point is a functional of $\rho_{\text{bary}}$ alone (§3.2). Therefore:
+The geometric terms depend on $\gamma_{ij}$, which is sourced by $\rho_{\text{total}}$ through the Poisson equation (in the Newtonian limit) or through the full Einstein equations. In either case, the relationship between a source perturbation $\delta\rho$ at $r_1$ and the metric response at $r_0$ is mediated by the Green's function $G(r_0, r_1) \sim 1/|r_0 - r_1|$ in 3D. This is a **smoothing** kernel: it transports influence but cannot sharpen it. A localized source produces a broad, smooth response.
 
-$$\rho_{\text{dark}}(r) = \rho_{\text{dark}}[\rho_{\text{bary}}](r)$$
+**The question is locality:** could a baryonic feature at $r_1 \neq r_0$ produce a rotation curve feature at $r_0$ with no baryonic feature at $r_0$?
 
-$\rho_{\text{dark}}$ is not an independent field. It is **determined** by $\rho_{\text{bary}}$ through the fixed-point structure of the Kuramoto-Einstein equations.
+The answer: the coupling kernel falls as $1/|r_0 - r_1|$. A baryonic feature at $r_1$ produces a *smooth, broad* contribution to $a_{\text{dark}}$ at $r_0$ — not a localized feature.
 
-**Now consider a feature in $a_{\text{total}}$ at $r_0$.** Since $a_{\text{total}} = a_{\text{bary}} + a_{\text{dark}}$ and both terms are functionals of $\rho_{\text{bary}}$, the feature in $a_{\text{total}}$ must originate from $\rho_{\text{bary}}$.
-
-**The question is locality:** could a baryonic feature at $r_1 \neq r_0$ produce a rotation curve feature at $r_0$ with no baryonic feature at $r_0$? This would violate the inverse in spirit, though not in letter.
-
-The answer is: the coupling kernel $K(x, x') = G_\gamma(x, x')$ is the Green's function of the Laplacian, which in 3D falls as $1/|x - x'|$. It is a **smoothing** kernel. It can transport influence from $r_1$ to $r_0$, but it does so by spreading, not by sharpening. A baryonic feature at $r_1$ produces a *smooth, broad* contribution to $a_{\text{dark}}$ at $r_0$ — not a localized feature.
-
-Therefore: **a localized feature in $a_{\text{total}}$ at $r_0$ requires a localized source at $r_0$.** The only localized source is $\rho_{\text{bary}}(r_0)$, because the dark matter contribution at $r_0$ from distant baryonic features is smoothed by the Green's function.
-
-More precisely, decompose the dark matter acceleration at $r_0$:
+Decompose the dark matter acceleration at $r_0$:
 
 $$a_{\text{dark}}(r_0) = \underbrace{a_{\text{dark}}^{\text{local}}(r_0)}_{\text{from } \rho_{\text{bary}} \text{ near } r_0} + \underbrace{a_{\text{dark}}^{\text{nonlocal}}(r_0)}_{\text{from } \rho_{\text{bary}} \text{ far from } r_0}$$
 
@@ -173,7 +173,30 @@ The nonlocal term is smooth (Green's function averages over distant sources). An
 - $a_{\text{bary}}(r_0)$ directly (a baryonic feature at $r_0$), or
 - $a_{\text{dark}}^{\text{local}}(r_0)$ (the dark matter response to baryonic structure near $r_0$, which by complementary slackness mirrors the baryonic feature with opposite sign in $\rho_{\text{dark}}$).
 
-Both require baryonic structure at or near $r_0$. $\blacksquare$
+Both require baryonic structure at or near $r_0$.
+
+**What this proves:** Localized phantom features — sharp structure in $a_{\text{total}}$ at $r_0$ with no baryonic structure at or near $r_0$ — are ruled out by the smoothing property of the Green's function. This holds at any fixed point, stable or unstable, and does not require the Kuramoto-Einstein dictionary. It is a consequence of the Poisson equation. $\blacksquare$
+
+**What this does not prove:** That $\rho_{\text{dark}}$ as a whole is determined by $\rho_{\text{bary}}$. The smoothing argument rules out phantom *features* but not phantom *backgrounds*. A smooth, featureless excess in $\rho_{\text{dark}}$ — contributing to the total dark matter mass but not to localized rotation curve structure — is not excluded by the Green's function argument alone. Excluding that requires the stability argument of §3.2 (which uses the mapping) or the uniqueness proof of §7 (which is open).
+
+### 3.4 The Residual Conditionals
+
+The inverse Renzo's Rule as stated — "every rotation curve feature has a baryonic origin" — is established with the following caveats:
+
+1. **"Feature" means localized structure, not smooth background.** The smoothing argument (§3.3) rules out phantom features but not phantom backgrounds. This is the physically relevant claim: Renzo's Rule as observed concerns bumps, wiggles, and dips, not the overall mass deficit.
+
+2. **The stability argument (§3.2) depends on the Kuramoto-Einstein mapping.** The claim that the feedback loop $\delta\rho_{\text{dark}} \to \delta\gamma \to \delta K \to \delta r \to \delta\rho_{\text{dark}}$ has loop gain below unity at stable fixed points uses the identification $N \leftrightarrow r$ and the self-consistency structure of the Kuramoto order parameter. If the mapping is an analogy rather than an identity, this part of the argument carries the mapping's uncertainty. The smoothing argument (§3.3) does not share this dependence.
+
+3. **The mapping itself is structural, not yet dynamical.** The [Kuramoto-Einstein mapping](kuramoto_einstein_mapping.md) identifies fields and derivatives term by term. It does not yet verify numerical prefactors or prove dynamical equivalence (mapping document §7.1). A physicist will ask: "Why is the lapse *literally* coherence rather than *formally analogous to* coherence?" The answer is that the identification reproduces the correct structure of the ADM equations and the correct MOND scaling in the weak-coherence limit — but the full dynamical proof remains open. The forward direction (§2) and the smoothing argument (§3.3) do not depend on the mapping. The stability argument (§3.2) does.
+
+The derivation is therefore layered:
+
+| Claim | Depends on |
+|---|---|
+| Forward Renzo's Rule | Einstein-Hilbert action + Hamiltonian constraint (standard GR) |
+| No phantom features | Green's function smoothing (Poisson equation, standard) |
+| No self-sustaining dark structure at stable equilibria | Kuramoto-Einstein mapping + stability |
+| $\rho_{\text{dark}}$ uniquely determined by $\rho_{\text{bary}}$ | Uniqueness of fixed point (open) |
 
 ---
 
@@ -238,35 +261,55 @@ The transition zone ($a \sim a_0$) is where the inverse is weakest, because the 
 
 ## 6. Summary
 
-| Gap | Resolution |
-|---|---|
-| **Objective function unspecified** | The objective is the Einstein-Hilbert action in ADM form. The Hamiltonian constraint is the KKT stationarity condition with $N$ as the multiplier. |
-| **Primal-dual coupling open** | The Kuramoto self-consistency equation provides the fixed-point structure. Existence follows from Schauder; uniqueness in the galactic regime from empirical convergence of N-body simulations. |
-| **Inverse unproved** | At the fixed point, $\rho_{\text{dark}}$ is a functional of $\rho_{\text{bary}}$. The Green's function kernel is smoothing, so localized rotation curve features require localized baryonic sources. |
-| **Complementary slackness assumed** | Complementary slackness is the Kuramoto order parameter's zero/nonzero structure mapped through the dictionary. It is a property of synchronization, not an assumption. |
+### What is proved
 
-The chain of reasoning:
+| Claim | Status | Depends on |
+|---|---|---|
+| **Forward Renzo's Rule** | Proved (§2) | Einstein-Hilbert action, Hamiltonian constraint. Standard GR. |
+| **No phantom features** | Proved (§3.3) | Green's function smoothing. Standard Poisson equation. |
+| **Complementary slackness from variational principle** | Proved (§1.3) | Einstein-Hilbert action + non-negativity of $\rho_{\text{dark}}$. |
+| **Primal-dual fixed-point existence** | Proved (§3.2) | Schauder fixed-point theorem. |
+
+### What is argued but not proved
+
+| Claim | Status | Gap |
+|---|---|---|
+| **No self-sustaining dark structure at stable equilibria** | Argued (§3.2) | Depends on the Kuramoto-Einstein mapping being literal, not just analogous. |
+| **$\rho_{\text{dark}}$ uniquely determined by $\rho_{\text{bary}}$** | Conjectured (§3.2) | Requires fixed-point uniqueness, which is empirically supported but mathematically open. |
+
+### What is predicted
+
+| Prediction | Status | Test |
+|---|---|---|
+| **Maximum Renzo's Rule scatter at $a \sim a_0$** | Falsifiable (§5) | SPARC dataset. Independent of the mapping and uniqueness. |
+
+The chain of reasoning, with load-bearing conditionals marked:
 
 1. Gravity is described by the Einstein-Hilbert action (standard GR).
 2. The ADM decomposition reveals the Hamiltonian constraint as the stationarity condition with the lapse as multiplier.
-3. The Kuramoto-Einstein dictionary identifies the lapse with coherence and the matter density with natural frequency.
-4. The Kuramoto self-consistency equation provides the coupled fixed-point structure.
-5. At the fixed point, the synchronization deficit (dark matter) is a functional of the natural frequencies (baryonic matter) alone.
-6. Complementary slackness is the order parameter's threshold behavior: zero below synchronization, positive above.
-7. Renzo's Rule (forward) follows from the algebraic locality of the Hamiltonian constraint.
-8. The inverse follows from the smoothing property of the Green's function kernel: $\rho_{\text{dark}}$ inherits its structure from $\rho_{\text{bary}}$ and cannot generate localized features independently.
+3. **(Conditional)** The Kuramoto-Einstein dictionary identifies the lapse with coherence and the matter density with natural frequency. This is structural, not yet dynamically proved.
+4. The Kuramoto self-consistency equation provides the coupled fixed-point structure. Existence is proved; uniqueness is open.
+5. **(Conditional on uniqueness)** At the unique fixed point, the synchronization deficit (dark matter) would be a functional of the natural frequencies (baryonic matter) alone.
+6. **(Independent of 3–5)** Complementary slackness is the content of the Hamiltonian constraint with non-negative $\rho_{\text{dark}}$.
+7. **(Independent of 3–5)** Renzo's Rule (forward) follows from the algebraic locality of the Hamiltonian constraint.
+8. **(Independent of 3–5)** The no-phantom-features claim follows from the smoothing property of the Green's function kernel.
+9. **(Depends on 3)** The no-self-sustaining-structure claim uses the mapping's feedback loop analysis at stable fixed points.
 
 ---
 
 ## 7. What Remains
 
-1. **Numerical verification.** Solve the coupled Kuramoto-Einstein fixed-point equation for a realistic baryonic mass distribution (e.g., SPARC galaxies) and verify that the resulting $\rho_{\text{dark}}(r)$ reproduces observed rotation curves with Renzo's Rule holding quantitatively.
+Ordered by independence — items that stand without the mapping come first.
 
-2. **Uniqueness proof.** Replace the empirical argument for fixed-point uniqueness with a mathematical proof. Candidate approach: show that the Kuramoto self-consistency map is a contraction in an appropriate function space when $\omega(x)$ has the radial monotonicity typical of galaxies.
+1. **Transition zone scatter (independent of mapping, independent of uniqueness).** The derivation predicts maximum Renzo's Rule scatter at $a \sim a_0$, with tighter correspondence in both the deep-MOND and Newtonian regimes. Test against high-resolution SPARC rotation curves with well-measured baryonic profiles. This is the sharpest near-term test because it follows from the Green's function smoothing argument alone (§3.3) and does not require the Kuramoto-Einstein mapping or the fixed-point uniqueness. If it holds, it is independent evidence for the fixed-point structure even before the uniqueness proof is complete.
 
-3. **Transition zone scatter.** The derivation predicts maximum Renzo's Rule scatter at $a \sim a_0$. Test against high-resolution SPARC rotation curves with well-measured baryonic profiles.
+2. **Uniqueness proof (would close the inverse fully).** Replace the empirical argument for fixed-point uniqueness with a mathematical proof. Candidate approach: show that the Kuramoto self-consistency map is a contraction in an appropriate function space when $\omega(x)$ has the radial monotonicity typical of galaxies. Without this, the inverse Renzo's Rule is proved for features (§3.3) but not for smooth backgrounds (§3.4).
 
-4. **Stribeck replacement.** The standard Kuramoto coupling uses $\sin(\psi - \theta)$. The framework claims the vacuum has a Stribeck-type impedance. Replacing the sine coupling with a Stribeck-weighted function and re-deriving the fixed-point structure would tighten the connection to the Universal Rosin.
+3. **Dynamical equivalence of the Kuramoto-Einstein mapping.** The mapping document ([§7.1](kuramoto_einstein_mapping.md)) identifies fields and derivatives but does not verify numerical prefactors. A referee will ask: "Why is the lapse *literally* coherence rather than *formally analogous to* coherence?" The structural identification reproduces the correct ADM equations and the correct MOND scaling — but the full dynamical proof (matching all prefactors, not just structure) would discharge this conditional. Until then, the stability argument (§3.2) inherits the mapping's uncertainty; the smoothing argument (§3.3) and the forward direction (§2) do not.
+
+4. **Numerical verification.** Solve the coupled Kuramoto-Einstein fixed-point equation for a realistic baryonic mass distribution (e.g., SPARC galaxies) and verify that the resulting $\rho_{\text{dark}}(r)$ reproduces observed rotation curves with Renzo's Rule holding quantitatively.
+
+5. **Stribeck replacement.** The standard Kuramoto coupling uses $\sin(\psi - \theta)$. The framework claims the vacuum has a Stribeck-type impedance. Replacing the sine coupling with a Stribeck-weighted function and re-deriving the fixed-point structure would tighten the connection to the Universal Rosin.
 
 ---
 
