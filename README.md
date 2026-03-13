@@ -28,6 +28,7 @@ theoretical structure, from galaxy rotation curves to black holes to the CMB.
 ```
 201/
 ├── joven_unifying_framework.md        ← Main paper
+├── renzos_rule_derivation.md          ← Formal derivation of Renzo's Rule & inverse
 ├── intersections/                     ← Submodule: companion papers & notebooks
 │   ├── joven_stick_slip_dark_matter.md    Companion paper (local mechanism, dark matter dual)
 │   ├── cone_topology.ipynb                Flat rotation curves from conical geometry
@@ -79,50 +80,57 @@ theoretical structure, from galaxy rotation curves to black holes to the CMB.
 4. **Renzo's Rule from complementary slackness.** Every feature in the baryonic
    luminosity profile is mirrored in the rotation curve as a structural
    consequence of KKT conditions, not an empirical correlation. See the
-   [companion paper](intersections/joven_stick_slip_dark_matter.md) §4.3.
+   [companion paper](intersections/joven_stick_slip_dark_matter.md) §4.3 and
+   [formal derivation](renzos_rule_derivation.md).
 
-5. **Flat rotation curves from conical geometry.** On a conical metric, Bessel
+5. **Inverse Renzo's Rule from synchronization structure.** Every rotation curve
+   feature has a baryonic origin. At the Kuramoto-Einstein fixed point,
+   &rho;<sub>dark</sub> is a functional of &rho;<sub>bary</sub> via the
+   Green's function kernel, which smooths but cannot generate localized features.
+   See the [formal derivation](renzos_rule_derivation.md) §3.
+
+6. **Flat rotation curves from conical geometry.** On a conical metric, Bessel
    modes yield *k* &prop; 1/*r* without any dark matter term (&lambda; = 0). See the
    [cone topology notebook](intersections/cone_topology.ipynb).
 
-6. **Kuramoto synchronization threshold is formally identical to the MOND
+7. **Kuramoto synchronization threshold is formally identical to the MOND
    transition.** Coupling strength *K<sub>c</sub>* maps to acceleration scale
    *a*<sub>0</sub>. Below threshold: incoherence (Newtonian). Above threshold:
    phase-locking (MOND). See the
    [main paper](joven_unifying_framework.md) §3.3.
 
-7. **Feigenbaum cascade toward black hole singularity.** Period-doubling at the
+8. **Feigenbaum cascade toward black hole singularity.** Period-doubling at the
    universal rate &delta; &approx; 4.669 accumulates at the event horizon. See the
    [cascade notebook](intersections/cvt/notebooks/06_feigenbaum_cascade.ipynb).
 
 ### Reasonable Next Hypotheses
 
-8. **The metric tensor *is* the local friction coefficient.** The Einstein field
+9. **The metric tensor *is* the local friction coefficient.** The Einstein field
    equations reread as: the medium's impedance (*G*<sub>&mu;&nu;</sub>) is
    determined by its energy content (*T*<sub>&mu;&nu;</sub>). Pressure and
    velocity determine nodal density. This reframes GR with identical
    predictions but different ontology. *Needs:* a rigorous derivation showing
    Stribeck-type impedance reproduces GR at all tested scales.
 
-9. **Space is a phase shift in the medium's duty cycle.** The ADM lapse
+10. **Space is a phase shift in the medium's duty cycle.** The ADM lapse
    function *N* and shift vector *N<sup>i</sup>* are duty cycle and phase
    offset of local oscillation. *Status:* the ADM formalism already contains
    this structure; the claim is that the physical interpretation is literal,
    not merely formal.
 
-10. **The Universal Rosin — a measurable vacuum impedance function.** The
+11. **The Universal Rosin — a measurable vacuum impedance function.** The
     vacuum's Stribeck curve sets *a*<sub>0</sub> at galactic scales, *I<sub>c</sub>*
     at Josephson junctions, and rate-and-state friction at fault zones. *Needs:*
     independent measurement of the vacuum Stribeck curve, possibly via the
     relationship between &Lambda; and *a*<sub>0</sub>.
 
-11. **CMB acoustic peaks as primordial synchronization.** Peaks mark scales
+12. **CMB acoustic peaks as primordial synchronization.** Peaks mark scales
     where oscillator synchronization completed at decoupling; the Sachs-Wolfe
     plateau marks scales too large to synchronize. See the
     [CMB notebook](intersections/cvt/notebooks/05_cmb_overtone_comparison.ipynb).
     *Needs:* sub-percent accuracy match to Planck data.
 
-12. **The Bullet Cluster as synchronization decoupling.** During violent
+13. **The Bullet Cluster as synchronization decoupling.** During violent
     mergers, synchronization tracks the collisionless component while gas
     decouples. Plausible within the framework but undemonstrated.
 
@@ -133,7 +141,7 @@ theoretical structure, from galaxy rotation curves to black holes to the CMB.
 | Open Question | Framework | Resolution |
 |---|---|---|
 | Why does MOND work so well empirically? | &Lambda;CDM | MOND transition *is* the Kuramoto synchronization threshold — it has structural origin, not coincidental fit |
-| Why does dark matter track baryonic features (Renzo's Rule)? | &Lambda;CDM | Complementary slackness: dual variable is structurally coupled to primal variable at every radius |
+| Why does dark matter track baryonic features (Renzo's Rule)? | &Lambda;CDM | Complementary slackness: dual variable is structurally coupled to primal variable at every radius. Inverse also holds: at the Kuramoto-Einstein fixed point, &rho;<sub>dark</sub> is a functional of &rho;<sub>bary</sub> |
 | What physical mechanism produces *a*<sub>0</sub>? | MOND | *a*<sub>0</sub> is the impedance-matching point of the vacuum's Stribeck curve — the scale where medium transitions from stiff to compliant |
 | Why do galaxy rotation curves flatten? | Both | On conical geometry, Bessel modes yield *k* &prop; 1/*r* automatically; or equivalently, synchronization coupling produces flat coherence beyond the threshold radius |
 | Why are QPO frequency ratios approximately mass-independent? | GR | Synchronization ratios are set by medium nodal geometry, not by gravitational source mass |
