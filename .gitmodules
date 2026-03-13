@@ -1,0 +1,3 @@
+[submodule "intersections"]
+	path = intersections
+	url = https://github.com/nickjoven/intersections.git
