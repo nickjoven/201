@@ -361,16 +361,16 @@ footer {
   </div>
 
   <div class="card">
-    <h3><span class="tag tag-math">Math</span> Inverse Renzo's Rule</h3>
+    <h3><span class="tag tag-math">Math</span> Inverse Renzo's Rule (No Phantom Features)</h3>
     <p>
-      Every rotation curve feature has a baryonic origin. At the Kuramoto-Einstein fixed point,
-      $\rho_{\text{dark}}$ is a functional of $\rho_{\text{bary}}$ &mdash; not an independent
-      field. The coupling kernel (Green's function of the spatial Laplacian) is a smoothing
-      operator: it can transport influence but cannot sharpen or invent localized features.
-      Therefore localized rotation curve features require localized baryonic sources.
+      Every <em>localized</em> rotation curve feature has a baryonic origin. The Green's function
+      of the Laplacian is a smoothing operator: it transports influence but cannot sharpen or
+      invent localized features. This is proved from the Poisson equation alone, independent of
+      the Kuramoto-Einstein mapping. The full inverse ($\rho_{\text{dark}}$ uniquely determined
+      by $\rho_{\text{bary}}$) requires fixed-point uniqueness, which is open.
     </p>
     <p style="font-size:0.85rem; color:var(--dim);">
-      <a href="https://github.com/nickjoven/201/blob/main/renzos_rule_derivation.md">Formal derivation</a> &sect;3
+      <a href="https://github.com/nickjoven/201/blob/main/renzos_rule_derivation.md">Formal derivation</a> &sect;3.3&ndash;3.4
     </p>
   </div>
 
@@ -712,10 +712,10 @@ footer {
       <td>Established &mdash; conditional discharged</td>
     </tr>
     <tr>
-      <td>Inverse Renzo's Rule</td>
+      <td>Inverse Renzo's Rule (no phantom features)</td>
       <td><span class="tag tag-math">Math</span></td>
-      <td><a href="https://github.com/nickjoven/201/blob/main/renzos_rule_derivation.md">Formal derivation</a> &sect;3</td>
-      <td>Established &mdash; fixed-point uniqueness proof would strengthen</td>
+      <td><a href="https://github.com/nickjoven/201/blob/main/renzos_rule_derivation.md">Formal derivation</a> &sect;3.3</td>
+      <td>Established for localized features (Poisson smoothing). Full inverse (unique $\rho_{\text{dark}}$) requires uniqueness proof.</td>
     </tr>
     <tr>
       <td>Kuramoto-Einstein derivative mapping</td>
