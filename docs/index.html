@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gravity as Synchronization — A Walkthrough</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body, {delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]});">
+</script>
+<style>
+:root {
+  --bg: #0d1117;
+  --fg: #c9d1d9;
+  --accent: #58a6ff;
+  --accent2: #f0883e;
+  --dim: #8b949e;
+  --card: #161b22;
+  --border: #30363d;
+  --green: #3fb950;
+  --yellow: #d29922;
+  --purple: #bc8cff;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  line-height: 1.7;
+  font-size: 17px;
+}
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* --- NAV --- */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(13,17,23,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 0.6rem 1.5rem;
+  display: flex; align-items: center; gap: 1.5rem;
+  font-size: 0.85rem;
+}
+nav .title { font-weight: 700; color: var(--fg); white-space: nowrap; }
+nav .links { display: flex; gap: 1rem; flex-wrap: wrap; }
+nav .links a { color: var(--dim); }
+nav .links a:hover { color: var(--accent); }
+
+/* --- LAYOUT --- */
+.container { max-width: 52rem; margin: 0 auto; padding: 5rem 1.5rem 4rem; }
+section { margin-bottom: 4rem; }
+h1 { font-size: 2.4rem; line-height: 1.2; margin-bottom: 0.3rem; }
+h2 { font-size: 1.6rem; margin-bottom: 1rem; padding-bottom: 0.4rem; border-bottom: 1px solid var(--border); }
+h3 { font-size: 1.15rem; margin: 1.5rem 0 0.5rem; color: var(--accent2); }
+p, li { margin-bottom: 0.7rem; }
+ul, ol { padding-left: 1.4rem; }
+.subtitle { color: var(--dim); font-size: 1.05rem; margin-bottom: 2rem; }
+
+/* --- CARDS --- */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.3rem 1.5rem;
+  margin-bottom: 1rem;
+}
+.card h3 { margin-top: 0; }
+
+/* --- TAGS --- */
+.tag {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.15rem 0.55rem;
+  border-radius: 4px;
+  vertical-align: middle;
+  margin-right: 0.3rem;
+}
+.tag-math { background: rgba(63,185,80,0.15); color: var(--green); border: 1px solid rgba(63,185,80,0.3); }
+.tag-hyp  { background: rgba(210,153,34,0.15); color: var(--yellow); border: 1px solid rgba(210,153,34,0.3); }
+.tag-open { background: rgba(188,140,255,0.15); color: var(--purple); border: 1px solid rgba(188,140,255,0.3); }
+
+/* --- TABLE --- */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0 1.5rem;
+  font-size: 0.92rem;
+}
+th, td {
+  text-align: left;
+  padding: 0.55rem 0.8rem;
+  border: 1px solid var(--border);
+}
+th { background: var(--card); font-weight: 600; }
+td { background: var(--bg); }
+
+/* --- HERO --- */
+.hero {
+  text-align: center;
+  padding: 3rem 0 2rem;
+}
+.hero h1 { font-size: 2.8rem; }
+.hero .subtitle { font-size: 1.15rem; }
+.badge-row {
+  display: flex; justify-content: center; gap: 0.7rem; margin-top: 1rem; flex-wrap: wrap;
+}
+.badge-row .tag { font-size: 0.78rem; padding: 0.25rem 0.7rem; }
+
+/* --- FLOW DIAGRAM --- */
+.flow {
+  display: flex; align-items: center; justify-content: center;
+  gap: 0.5rem; flex-wrap: wrap; margin: 1.5rem 0;
+  font-size: 0.95rem;
+}
+.flow-box {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  text-align: center;
+}
+.flow-arrow { color: var(--dim); font-size: 1.3rem; }
+
+/* --- FOOTER --- */
+footer {
+  text-align: center;
+  color: var(--dim);
+  font-size: 0.85rem;
+  padding: 2rem 0;
+  border-top: 1px solid var(--border);
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 600px) {
+  .hero h1 { font-size: 1.8rem; }
+  nav { font-size: 0.75rem; gap: 0.8rem; }
+  .container { padding: 4.5rem 1rem 3rem; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="title">Joven 2026</span>
+  <div class="links">
+    <a href="#thesis">Thesis</a>
+    <a href="#experiments">Experiments</a>
+    <a href="#mechanism">Mechanism</a>
+    <a href="#results">Results</a>
+    <a href="#resolutions">Resolutions</a>
+    <a href="#predictions">Predictions</a>
+    <a href="#status">Status Map</a>
+    <a href="https://github.com/nickjoven/201">GitHub</a>
+  </div>
+</nav>
+
+<div class="container">
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="top">
+  <h1>Gravity as Synchronization<br>in a Frictional Medium</h1>
+  <p class="subtitle">
+    A walkthrough of the unifying framework by N. Joven (March 2026).<br>
+    Two tabletop experiments. One reinterpretation of general relativity.
+  </p>
+  <div class="badge-row">
+    <span class="tag tag-math">Mathematically supported</span>
+    <span class="tag tag-hyp">Reasonable hypothesis</span>
+    <span class="tag tag-open">Open problem</span>
+  </div>
+</section>
+
+<!-- ============ THESIS ============ -->
+<section id="thesis">
+  <h2>The Thesis in One Paragraph</h2>
+  <p>
+    Gravity is not a force of attraction. It is <strong>synchronization</strong> of oscillators
+    through a shared <strong>frictional medium</strong>. The metric tensor of general relativity
+    is the local friction coefficient of the vacuum. Mass does not curve space — pressure and
+    velocity determine the <em>nodal density</em> of the medium. Dark matter is the shadow price
+    the gravitational field pays when synchronization cannot be achieved with visible matter alone.
+    The MOND acceleration scale $a_0$ is the impedance-matching point of the vacuum's friction
+    function — its "Universal Rosin."
+  </p>
+  <p style="font-size:0.9rem; color:var(--dim);">
+    Source: <a href="https://github.com/nickjoven/201/blob/main/joven_unifying_framework.md">joven_unifying_framework.md</a>
+    &middot; Companion: <a href="https://github.com/nickjoven/intersections/blob/main/joven_stick_slip_dark_matter.md">joven_stick_slip_dark_matter.md</a>
+  </p>
+</section>
+
+<!-- ============ EXPERIMENTS ============ -->
+<section id="experiments">
+  <h2>Two Experiments You Can Do on a Table</h2>
+
+  <div class="card">
+    <h3>Experiment 1 &mdash; Bow a Brass Tube</h3>
+    <p>
+      Apply rosin to your fingers and draw them along a metal tube. Above a critical speed,
+      the tube rings at its natural frequency. <strong>Slow down</strong>, and the tone drops an octave:
+      the tube produces a frequency <em>below</em> its fundamental.
+    </p>
+    <p>
+      The mechanism is <strong>stick-slip</strong>. Fingers alternate between gripping (stick &mdash;
+      elastic energy accumulates) and releasing (slip &mdash; the tube vibrates freely). The cycle
+      period doubles. The subharmonic emerges because the <em>coupling between driver and medium</em>
+      crossed a threshold.
+    </p>
+    <p>
+      Kawano et al. (2025) showed this threshold has <strong>two independent entry paths</strong>:
+      slow the drive (velocity entry) <em>or</em> increase pressure (force entry). Both produce the
+      same subharmonic. The bifurcation is two-dimensional; the output is one-dimensional.
+    </p>
+    <p><strong>This is the local mechanism.</strong></p>
+  </div>
+
+  <div class="card">
+    <h3>Experiment 2 &mdash; Put Metronomes on a Swing</h3>
+    <p>
+      Place several metronomes on a board resting on two cans. Start them at different phases.
+      Within minutes, they synchronize &mdash; ticking in unison, without any metronome
+      "knowing" about any other.
+    </p>
+    <p>
+      Each metronome's escapement imparts a tiny lateral impulse to the board. The board moves.
+      That motion feeds back into every pivot. The lowest-energy configuration is where all
+      impulses reinforce &mdash; <strong>phase alignment</strong>. No metronome pulls another. They
+      <em>agree</em>, because the medium makes disagreement energetically expensive.
+    </p>
+    <p><strong>This is the global phenomenon.</strong></p>
+  </div>
+
+  <div class="flow">
+    <div class="flow-box">Stick-slip<br><small>(local mechanism)</small></div>
+    <span class="flow-arrow">&rarr;</span>
+    <div class="flow-box">Frictional medium<br><small>(coupling)</small></div>
+    <span class="flow-arrow">&rarr;</span>
+    <div class="flow-box">Synchronization<br><small>(global result)</small></div>
+    <span class="flow-arrow">=</span>
+    <div class="flow-box"><strong>Gravity</strong></div>
+  </div>
+</section>
+
+<!-- ============ MECHANISM ============ -->
+<section id="mechanism">
+  <h2>How the Pieces Fit Together</h2>
+
+  <h3>The Mapping</h3>
+  <table>
+    <tr><th>Metronomes on a Swing</th><th>Gravitational System</th></tr>
+    <tr><td>Independent oscillators</td><td>Particles, annuli, galaxies</td></tr>
+    <tr><td>Coupled through moving platform</td><td>Coupled through spacetime (the medium)</td></tr>
+    <tr><td>Synchronize to same phase</td><td>Phase-lock into resonant ratios</td></tr>
+    <tr><td>Lowest energy = alignment</td><td>Gravity = phase-alignment</td></tr>
+    <tr><td>Platform motion = coupling field</td><td>Metric = local friction coefficient</td></tr>
+    <tr><td>No "force" &mdash; just agreement</td><td>No gravitational "pull" &mdash; phase coherence</td></tr>
+  </table>
+
+  <h3>The Impedance Condition</h3>
+  <p>The metronome platform reveals three regimes:</p>
+  <ul>
+    <li><strong>Platform too light</strong> &rarr; weak coupling, slow synchronization &rarr; <em>low-acceleration / MOND regime</em> ($a \ll a_0$): medium is compliant, collective synchronization dominates</li>
+    <li><strong>Platform too heavy</strong> &rarr; no coupling, oscillators isolated &rarr; <em>high-acceleration / Newtonian regime</em> ($a \gg a_0$): medium is stiff, local potentials dominate</li>
+    <li><strong>Sweet spot</strong> &rarr; fastest synchronization &rarr; <em>transition</em> ($a \sim a_0$): Stribeck inflection, impedance matched</li>
+  </ul>
+
+  <h3>The Kuramoto Connection <span class="tag tag-math">Math</span></h3>
+  <p>
+    The Kuramoto model (1975) produces phase-locking when coupling strength exceeds a critical
+    threshold $K_c$. Below $K_c$: incoherence. Above $K_c$: spontaneous synchronization. This is
+    <strong>formally identical</strong> to the MOND transition. The coupling strength is the medium's
+    impedance; the "natural frequencies" are orbital frequencies at each radius. The mapping:
+  </p>
+  <ul>
+    <li>$K > K_c$ &harr; $a < a_0$: medium couples orbits collectively (MOND)</li>
+    <li>$K < K_c$ &harr; $a > a_0$: each orbit is independent (Newtonian)</li>
+  </ul>
+
+  <h3>The Metric as Friction Coefficient <span class="tag tag-hyp">Hypothesis</span></h3>
+  <table>
+    <tr><th>General Relativity</th><th>This Framework</th></tr>
+    <tr><td>Spacetime is a curved fabric</td><td>Spacetime is a vibrating medium</td></tr>
+    <tr><td>Metric describes curvature</td><td>Metric is the local friction coefficient</td></tr>
+    <tr><td>Mass tells space how to curve</td><td>Pressure &amp; velocity determine nodal density</td></tr>
+    <tr><td>$G_{\mu\nu} = 8\pi G\, T_{\mu\nu}$</td><td>Medium impedance = energy content</td></tr>
+  </table>
+  <p>
+    The Einstein field equations are reread as: the stress-energy tensor $T_{\mu\nu}$ specifies
+    local pressure and velocity; the metric $g_{\mu\nu}$ specifies the resulting friction coefficient.
+    The equation is the statement that medium impedance (left side) is determined by energy content (right side).
+  </p>
+</section>
+
+<!-- ============ RESULTS ============ -->
+<section id="results">
+  <h2>Key Results &mdash; What Is Established vs. Hypothesized</h2>
+
+  <div class="card">
+    <h3><span class="tag tag-math">Math</span> Bidirectional Stick-Slip Bifurcation</h3>
+    <p>
+      Both slow drive and overwhelming force enter the stick-slip regime and produce subharmonics
+      through the same mechanism. Experimentally validated by Kawano et al. (2025). Two-dimensional
+      input, one-dimensional output.
+    </p>
+    <p style="font-size:0.85rem; color:var(--dim);">
+      <a href="https://github.com/nickjoven/intersections/blob/main/joven_stick_slip_dark_matter.md">Companion paper</a> &sect;1&ndash;2
+    </p>
+  </div>
+
+  <div class="card">
+    <h3><span class="tag tag-math">Math</span> Stribeck &harr; MOND Structural Parallel</h3>
+    <p>
+      The velocity-weakening branch of the Stribeck friction curve is structurally parallel to the
+      MOND interpolating function $\mu(x)$. Both measure excess coupling below a characteristic scale.
+    </p>
+    <p style="font-size:0.85rem; color:var(--dim);">
+      <a href="https://github.com/nickjoven/intersections/blob/main/joven_stick_slip_dark_matter.md">Companion paper</a> &sect;2.1
+    </p>
+  </div>
+
+  <div class="card">
+    <h3><span class="tag tag-math">Math</span> Dark Matter as Lagrange Multiplier</h3>
+    <p>
+      The Lagrange multiplier $\lambda$ enforcing the gravitational constraint is the dual variable
+      of a constrained optimization. Where baryonic matter suffices: $\lambda = 0$ (no dark matter).
+      Where it doesn't: $\lambda > 0$ (dark matter halo). The multiplier <em>is</em> the halo.
+    </p>
+    <p style="font-size:0.85rem; color:var(--dim);">
+      <a href="https://github.com/nickjoven/intersections/blob/main/joven_stick_slip_dark_matter.md">Companion paper</a> &sect;3&ndash;4
+    </p>
+  </div>
+
+  <div class="card">
+    <h3><span class="tag tag-math">Math</span> Renzo's Rule as Theorem</h3>
+    <p>
+      Complementary slackness (KKT conditions) guarantees that every feature in the baryonic
+      luminosity profile is mirrored in the rotation curve. This is a structural consequence
+      of local optimization, not an empirical correlation.
+    </p>
+    <p style="font-size:0.85rem; color:var(--dim);">
+      <a href="https://github.com/nickjoven/intersections/blob/main/joven_stick_slip_dark_matter.md">Companion paper</a> &sect;4.3
+    </p>
+  </div>
+
+  <div class="card">
+    <h3><span class="tag tag-math">Math</span> Flat Rotation Curves from Conical Geometry</h3>
+    <p>
+      On a conical metric, Bessel modes yield $k \propto 1/r$, producing flat rotation curves
+      with $\lambda = 0$ (no dark matter needed). The "dark matter problem" may be a coordinate
+      artifact of assuming Euclidean topology for a conical medium.
+    </p>
+    <p style="font-size:0.85rem; color:var(--dim);">
+      <a href="https://github.com/nickjoven/intersections/blob/main/cone_topology.ipynb">cone_topology.ipynb</a>
+    </p>
+  </div>
+
+  <div class="card">
+    <h3><span class="tag tag-math">Math</span> Kuramoto Threshold = MOND Transition</h3>
+    <p>
+      The Kuramoto synchronization threshold $K_c$ is formally identical to the MOND
+      acceleration scale $a_0$. The mathematical structure is established; the physical
+      identification is what the framework contributes.
+    </p>
+    <p style="font-size:0.85rem; color:var(--dim);">
+      <a href="https://github.com/nickjoven/201/blob/main/joven_unifying_framework.md">Main paper</a> &sect;3.3
+    </p>
+  </div>
+
+  <div class="card">
+    <h3><span class="tag tag-math">Math</span> Feigenbaum Cascade to Black Holes</h3>
+    <p>
+      Period-doubling from $f \to f/2 \to f/4 \to \ldots$ at the universal Feigenbaum rate
+      $\delta \approx 4.669$ accumulates at the event horizon. The horizon is the accumulation
+      point; the singularity is where oscillation ceases.
+    </p>
+    <p style="font-size:0.85rem; color:var(--dim);">
+      <a href="https://github.com/nickjoven/intersections/blob/main/cvt/notebooks/06_feigenbaum_cascade.ipynb">06_feigenbaum_cascade.ipynb</a>
+    </p>
+  </div>
+
+  <div class="card">
+    <h3><span class="tag tag-hyp">Hypothesis</span> Metric Tensor Is the Friction Coefficient</h3>
+    <p>
+      The reframing $g_{\mu\nu}$ = local friction coefficient preserves all GR predictions
+      but changes the ontology. Pressure and velocity determine nodal density instead of
+      curvature. <strong>Why reasonable:</strong> the Einstein equations already express impedance
+      matching; the reinterpretation is naming what the mathematics contains.
+    </p>
+    <p><strong>What's needed:</strong> rigorous derivation that Stribeck-type impedance
+      reproduces GR at all tested scales.</p>
+  </div>
+
+  <div class="card">
+    <h3><span class="tag tag-hyp">Hypothesis</span> Space as Phase Shift (ADM Reread)</h3>
+    <p>
+      The ADM lapse function $N$ and shift vector $N^i$ <em>are</em> the duty cycle and phase
+      offset of local stick-slip oscillation. Distance is accumulated phase shift across the medium.
+      <strong>Why reasonable:</strong> this is the physical content of the ADM formalism; the claim
+      is that the interpretation is literal.
+    </p>
+  </div>
+
+  <div class="card">
+    <h3><span class="tag tag-hyp">Hypothesis</span> The Universal Rosin</h3>
+    <p>
+      The vacuum has a Stribeck curve &mdash; a friction function whose value at any point depends
+      on local energy density and velocity. At galactic scales it manifests as $a_0$; at other
+      scales as $I_c$ (Josephson), rate-and-state friction (seismology), etc. The structural form
+      is universal; the threshold value is medium-dependent.
+    </p>
+    <p><strong>Why reasonable:</strong> the same bifurcation structure (threshold &rarr; subharmonic)
+      appears across all these systems, with medium-dependent thresholds but invariant structure.</p>
+    <p><strong>What's needed:</strong> independent measurement of the vacuum Stribeck curve, possibly
+      via the $\Lambda$&ndash;$a_0$ relationship.</p>
+  </div>
+
+  <div class="card">
+    <h3><span class="tag tag-hyp">Hypothesis</span> CMB Peaks as Primordial Synchronization</h3>
+    <p>
+      CMB acoustic peaks mark scales where oscillator synchronization completed at decoupling.
+      The Sachs-Wolfe plateau ($\ell < 100$) marks scales too large to synchronize.
+      <strong>Why reasonable:</strong> the baryon-photon plasma <em>is</em> a medium with coupled
+      oscillators; the overtone structure is demonstrated in the
+      <a href="https://github.com/nickjoven/intersections/blob/main/cvt/notebooks/05_cmb_overtone_comparison.ipynb">CMB notebook</a>.
+    </p>
+    <p><strong>What's needed:</strong> sub-percent accuracy match to Planck data.</p>
+  </div>
+
+  <div class="card">
+    <h3><span class="tag tag-open">Open</span> Bullet Cluster</h3>
+    <p>
+      If gravity is synchronization, the Bullet Cluster requires that synchronization can decouple
+      from baryonic gas during a violent merger and track the collisionless component. Plausible
+      but undemonstrated.
+    </p>
+  </div>
+
+  <div class="card">
+    <h3><span class="tag tag-open">Open</span> Mathematical Foundations</h3>
+    <p>
+      The <a href="https://github.com/nickjoven/intersections/blob/main/cvt/synthesis.md">CVT synthesis</a>
+      identifies three fields needed: <strong>category theory</strong> (forward map structure),
+      <strong>ergodic theory</strong> (synchronization as equilibrium), and
+      <strong>information geometry</strong> (measure over paths). All three exist independently;
+      their combination for this framework does not yet exist.
+    </p>
+  </div>
+</section>
+
+<!-- ============ RESOLUTIONS ============ -->
+<section id="resolutions">
+  <h2>Open Questions in Other Frameworks &mdash; Resolved Here</h2>
+  <p>
+    The framework addresses long-standing puzzles that remain open in both &Lambda;CDM cosmology
+    and MOND. The table below summarizes what each framework struggles with and how the
+    synchronization picture resolves it.
+  </p>
+
+  <div class="card">
+    <h3>Why does MOND work so well empirically?</h3>
+    <p><strong>Framework with the question:</strong> &Lambda;CDM</p>
+    <p>
+      In &Lambda;CDM, MOND's empirical success at galactic scales is unexplained &mdash; dark
+      matter halos would need to conspire to reproduce a simple acceleration-based law across
+      hundreds of galaxies with wildly different mass distributions.
+    </p>
+    <p>
+      <strong>Resolution:</strong> The MOND transition <em>is</em> the Kuramoto synchronization
+      threshold. It has structural origin in the mathematics of coupled oscillators, not a
+      coincidental fit. <span class="tag tag-math">Math</span> The Kuramoto &harr; MOND mapping
+      is formally established.
+    </p>
+  </div>
+
+  <div class="card">
+    <h3>Why does dark matter track baryonic features? (Renzo's Rule)</h3>
+    <p><strong>Framework with the question:</strong> &Lambda;CDM</p>
+    <p>
+      In &Lambda;CDM, dark matter halos are collisionless and formed before baryonic structure.
+      There is no mechanism for baryonic features (bumps, wiggles in the luminosity profile)
+      to be mirrored in the rotation curve &mdash; yet they invariably are.
+    </p>
+    <p>
+      <strong>Resolution:</strong> Complementary slackness (KKT conditions) structurally couples
+      the dual variable (dark matter) to the primal variable (baryonic mass) at every radius.
+      It is a theorem, not a correlation.
+      <span class="tag tag-math">Math</span>
+      See <a href="https://github.com/nickjoven/intersections/blob/main/joven_stick_slip_dark_matter.md">companion paper</a> &sect;4.3.
+    </p>
+  </div>
+
+  <div class="card">
+    <h3>What physical mechanism produces $a_0$?</h3>
+    <p><strong>Framework with the question:</strong> MOND</p>
+    <p>
+      MOND introduces $a_0 \approx 1.2 \times 10^{-10}$ m/s$^2$ as a fundamental constant
+      but offers no physical mechanism for why this scale exists or what sets its value.
+    </p>
+    <p>
+      <strong>Resolution:</strong> $a_0$ is the impedance-matching point of the vacuum's
+      Stribeck curve &mdash; the acceleration at which the medium transitions from stiff
+      (Newtonian, oscillators decoupled) to compliant (MOND, oscillators synchronized).
+      <span class="tag tag-hyp">Hypothesis</span> The structural identification is clear;
+      independent measurement of the vacuum Stribeck curve would promote this to established.
+    </p>
+  </div>
+
+  <div class="card">
+    <h3>Why do galaxy rotation curves flatten?</h3>
+    <p><strong>Framework with the question:</strong> &Lambda;CDM and MOND (differently)</p>
+    <p>
+      &Lambda;CDM requires fine-tuned dark matter halos. MOND fits the curves but lacks
+      a geometric or dynamical explanation for <em>why</em> the modification takes the form it does.
+    </p>
+    <p>
+      <strong>Resolution (two routes):</strong>
+    </p>
+    <ul>
+      <li><span class="tag tag-math">Math</span> On conical geometry, Bessel modes yield
+        $k \propto 1/r$ automatically (<a href="https://github.com/nickjoven/intersections/blob/main/cone_topology.ipynb">cone_topology.ipynb</a>).</li>
+      <li><span class="tag tag-math">Math</span> Synchronization coupling produces flat
+        coherence beyond the threshold radius (Kuramoto &harr; MOND correspondence).</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>Why are QPO frequency ratios approximately mass-independent?</h3>
+    <p><strong>Framework with the question:</strong> GR (accretion disk theory)</p>
+    <p>
+      The observed $3:2$ quasi-periodic oscillation ratio appears across stellar-mass and
+      supermassive black holes. Standard orbital resonance models struggle to explain this
+      mass-independence.
+    </p>
+    <p>
+      <strong>Resolution:</strong> QPOs are synchronization ratios set by medium nodal geometry
+      (the disk's Stribeck transfer function), not by source mass. Synchronization ratios depend
+      on coupling structure, not gravitational potential.
+      <span class="tag tag-hyp">Hypothesis</span> Testable: measure QPO onset as a function of
+      disk properties independent of central mass.
+    </p>
+  </div>
+
+  <div class="card">
+    <h3>What is dark matter?</h3>
+    <p><strong>Framework with the question:</strong> &Lambda;CDM</p>
+    <p>
+      Decades of direct detection experiments have found nothing. The particle remains hypothetical.
+    </p>
+    <p>
+      <strong>Resolution:</strong> Dark matter is the <em>shadow price</em> (Lagrange multiplier
+      $\lambda$) the gravitational field pays when baryonic matter is insufficient for
+      synchronization. It is constraint structure, not substance. Where baryonic matter suffices:
+      $\lambda = 0$. Where it doesn't: $\lambda > 0$.
+      <span class="tag tag-math">Math</span> The Lagrangian relaxation derivation is rigorous.
+      <span class="tag tag-hyp">Hypothesis</span> That the physical dark matter <em>is</em>
+      this mathematical object (rather than merely modeled by it) is the interpretive leap.
+    </p>
+  </div>
+
+  <div class="card">
+    <h3>What happens at a singularity?</h3>
+    <p><strong>Framework with the question:</strong> GR</p>
+    <p>
+      GR predicts infinite curvature at the center of black holes &mdash; a breakdown of the theory itself.
+    </p>
+    <p>
+      <strong>Resolution:</strong> The singularity is the accumulation point of a Feigenbaum
+      cascade ($\delta \approx 4.669$). The event horizon is where the duty cycle reaches 1.0
+      (permanent stick). The "singularity" is where oscillation leaves its domain of definition
+      &mdash; a phase transition, not a breakdown.
+      <span class="tag tag-math">Math</span> The cascade structure is demonstrated in the
+      <a href="https://github.com/nickjoven/intersections/blob/main/cvt/notebooks/06_feigenbaum_cascade.ipynb">Feigenbaum notebook</a>.
+      <span class="tag tag-hyp">Hypothesis</span> That this cascade corresponds to the physical
+      approach to a black hole singularity.
+    </p>
+  </div>
+</section>
+
+<!-- ============ PREDICTIONS ============ -->
+<section id="predictions">
+  <h2>Predictions and Tests</h2>
+
+  <div class="card">
+    <h3>1. Metronome Experiment with Variable Platform Mass</h3>
+    <p>
+      Vary platform mass systematically and measure time to synchronization, phase coherence,
+      and threshold for synchronization failure. Should show a Stribeck-like curve with a
+      sweet spot at impedance matching.
+      <strong>This is the tabletop version of measuring $a_0$.</strong>
+    </p>
+  </div>
+
+  <div class="card">
+    <h3>2. Cylinder Stick-Slip Mode Coupling</h3>
+    <p>
+      Thin-walled tube with tangential friction drive. Azimuthal modes ($m = 2, 3$) are coupled
+      oscillators on a cylindrical platform. <strong>Prediction:</strong> at critical drive,
+      $m = 3$ activates alongside $m = 2$ as a synchronized pair, not independently.
+    </p>
+    <p style="font-size:0.85rem; color:var(--dim);">
+      <a href="https://github.com/nickjoven/intersections/blob/main/09_cylinder_stick_slip.ipynb">09_cylinder_stick_slip.ipynb</a>
+    </p>
+  </div>
+
+  <div class="card">
+    <h3>3. QPO Frequency Ratios</h3>
+    <p>
+      If QPOs are synchronization ratios, their values should depend on the disk's Stribeck
+      transfer function (medium properties) rather than central object mass. The observed
+      approximate mass-independence of the $3:2$ ratio across stellar-mass and supermassive
+      black holes already supports this.
+    </p>
+  </div>
+
+  <div class="card">
+    <h3>4. CMB Peaks as Overtone Series</h3>
+    <p>
+      The CMB acoustic peaks are an overtone series. Peaks mark synchronization-complete scales
+      at decoupling. The Sachs-Wolfe plateau marks scales too large to synchronize.
+      Quantitative comparison in the
+      <a href="https://github.com/nickjoven/intersections/blob/main/cvt/notebooks/05_cmb_overtone_comparison.ipynb">CMB notebook</a>.
+    </p>
+  </div>
+</section>
+
+<!-- ============ STATUS MAP ============ -->
+<section id="status">
+  <h2>Status Map</h2>
+  <p>
+    A complete accounting of every claim in the framework, its evidential status,
+    and what would advance it.
+  </p>
+
+  <table>
+    <tr>
+      <th>Claim</th>
+      <th>Status</th>
+      <th>Evidence / Source</th>
+      <th>What Advances It</th>
+    </tr>
+    <tr>
+      <td>Bidirectional stick-slip bifurcation</td>
+      <td><span class="tag tag-math">Math</span></td>
+      <td>Kawano et al. (2025); <a href="https://github.com/nickjoven/intersections/blob/main/joven_stick_slip_dark_matter.md">companion</a> &sect;1&ndash;2</td>
+      <td>Established</td>
+    </tr>
+    <tr>
+      <td>Stribeck &harr; MOND parallel</td>
+      <td><span class="tag tag-math">Math</span></td>
+      <td><a href="https://github.com/nickjoven/intersections/blob/main/joven_stick_slip_dark_matter.md">Companion</a> &sect;2.1</td>
+      <td>Established</td>
+    </tr>
+    <tr>
+      <td>Dark matter = Lagrange multiplier</td>
+      <td><span class="tag tag-math">Math</span></td>
+      <td><a href="https://github.com/nickjoven/intersections/blob/main/joven_stick_slip_dark_matter.md">Companion</a> &sect;3&ndash;4</td>
+      <td>Established</td>
+    </tr>
+    <tr>
+      <td>Renzo's Rule from complementary slackness</td>
+      <td><span class="tag tag-math">Math</span></td>
+      <td><a href="https://github.com/nickjoven/intersections/blob/main/joven_stick_slip_dark_matter.md">Companion</a> &sect;4.3</td>
+      <td>Established</td>
+    </tr>
+    <tr>
+      <td>Flat curves from conical geometry</td>
+      <td><span class="tag tag-math">Math</span></td>
+      <td><a href="https://github.com/nickjoven/intersections/blob/main/cone_topology.ipynb">cone_topology.ipynb</a></td>
+      <td>Established</td>
+    </tr>
+    <tr>
+      <td>Kuramoto threshold = MOND transition</td>
+      <td><span class="tag tag-math">Math</span></td>
+      <td><a href="https://github.com/nickjoven/201/blob/main/joven_unifying_framework.md">Main paper</a> &sect;3.3</td>
+      <td>Established</td>
+    </tr>
+    <tr>
+      <td>Feigenbaum cascade &rarr; event horizon</td>
+      <td><span class="tag tag-math">Math</span></td>
+      <td><a href="https://github.com/nickjoven/intersections/blob/main/cvt/notebooks/06_feigenbaum_cascade.ipynb">06_feigenbaum_cascade.ipynb</a></td>
+      <td>Established</td>
+    </tr>
+    <tr>
+      <td>Metric = friction coefficient</td>
+      <td><span class="tag tag-hyp">Hypothesis</span></td>
+      <td>Structural argument in main paper &sect;4</td>
+      <td>Rigorous derivation reproducing GR at all tested scales</td>
+    </tr>
+    <tr>
+      <td>Space as phase shift (ADM reread)</td>
+      <td><span class="tag tag-hyp">Hypothesis</span></td>
+      <td>ADM formalism already contains the structure</td>
+      <td>Formal proof that lapse/shift interpretation is complete</td>
+    </tr>
+    <tr>
+      <td>Universal Rosin (vacuum Stribeck curve)</td>
+      <td><span class="tag tag-hyp">Hypothesis</span></td>
+      <td>Cross-system structural invariance</td>
+      <td>Independent measurement; $\Lambda$&ndash;$a_0$ relationship</td>
+    </tr>
+    <tr>
+      <td>CMB peaks as synchronization</td>
+      <td><span class="tag tag-hyp">Hypothesis</span></td>
+      <td><a href="https://github.com/nickjoven/intersections/blob/main/cvt/notebooks/05_cmb_overtone_comparison.ipynb">05_cmb_overtone_comparison.ipynb</a></td>
+      <td>Sub-percent match to Planck data</td>
+    </tr>
+    <tr>
+      <td>QPO ratios from medium geometry</td>
+      <td><span class="tag tag-hyp">Hypothesis</span></td>
+      <td>Mass-independence of 3:2 ratio</td>
+      <td>QPO onset vs. disk properties (mass-independent)</td>
+    </tr>
+    <tr>
+      <td>Bullet Cluster compatibility</td>
+      <td><span class="tag tag-open">Open</span></td>
+      <td>Plausible but undemonstrated</td>
+      <td>Simulation of synchronization decoupling in mergers</td>
+    </tr>
+    <tr>
+      <td>Category + ergodic + info-geometry foundations</td>
+      <td><span class="tag tag-open">Open</span></td>
+      <td><a href="https://github.com/nickjoven/intersections/blob/main/cvt/synthesis.md">CVT synthesis</a></td>
+      <td>Combined mathematical framework</td>
+    </tr>
+  </table>
+</section>
+
+<!-- ============ REPO ============ -->
+<section id="repo">
+  <h2>Repository &amp; Sources</h2>
+  <ul>
+    <li><a href="https://github.com/nickjoven/201/blob/main/joven_unifying_framework.md">Main paper</a> &mdash; <em>From Brass Tubes and Metronomes to a Unifying Framework</em></li>
+    <li><a href="https://github.com/nickjoven/intersections/blob/main/joven_stick_slip_dark_matter.md">Companion paper</a> &mdash; <em>Stick-Slip Dynamics and the Dark Matter Dual</em></li>
+    <li><a href="https://github.com/nickjoven/intersections">intersections</a> &mdash; Notebooks, CVT framework, supporting analysis</li>
+    <li><a href="https://github.com/nickjoven/201">201</a> &mdash; This repository</li>
+  </ul>
+  <p>
+    Licensed under <a href="https://github.com/nickjoven/201/blob/main/LICENSE">CC0 1.0</a> &mdash; No rights reserved.
+  </p>
+</section>
+
+</div>
+
+<footer>
+  <p>N. Joven &middot; 2026 &middot; <a href="https://github.com/nickjoven/201">github.com/nickjoven/201</a></p>
+</footer>
+
+</body>
+</html>
