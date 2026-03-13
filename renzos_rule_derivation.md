@@ -148,7 +148,9 @@ We do not have a uniqueness proof. What we have:
 
 **What this gives us:** At any stable fixed point, the dark matter density's *feature structure* is inherited from the baryonic distribution. This is weaker than "$\rho_{\text{dark}}$ is a functional of $\rho_{\text{bary}}$" (which requires uniqueness) but sufficient for the inverse: phantom features — localized structure in the rotation curve with no baryonic counterpart — are ruled out at stable equilibria.
 
-**What this does not give us:** A guarantee that the smooth *background level* of $\rho_{\text{dark}}$ is uniquely determined by $\rho_{\text{bary}}$. Multiple stable fixed points could in principle assign different smooth dark matter backgrounds to the same baryonic distribution. This would not violate the inverse Renzo's Rule (which concerns features, not backgrounds) but would mean the total dark matter mass is not uniquely predicted. A full uniqueness proof (§7) would close this.
+**What this does not give us:** A guarantee that the smooth *background level* of $\rho_{\text{dark}}$ is uniquely determined by $\rho_{\text{bary}}$. Multiple stable fixed points could in principle assign different smooth dark matter backgrounds to the same baryonic distribution. This would not violate the inverse Renzo's Rule (which concerns features, not backgrounds) but would mean the total dark matter mass is not uniquely predicted.
+
+**The path to closing this** is not algebraic (proving the map is a contraction) but physical: constructing a Lyapunov function for the dissipative Kuramoto dynamics that decreases monotonically along all trajectories. If it exists, it proves convergence to a unique attractor — not because the map has a unique fixed point, but because dissipation selects a unique basin. See §7 item 2.
 
 ### 3.3 The Smoothing Argument (Independent of the Mapping)
 
@@ -275,7 +277,7 @@ The transition zone ($a \sim a_0$) is where the inverse is weakest, because the 
 | Claim | Status | Gap |
 |---|---|---|
 | **No self-sustaining dark structure at stable equilibria** | Argued (§3.2) | Depends on the Kuramoto-Einstein mapping being literal, not just analogous. |
-| **$\rho_{\text{dark}}$ uniquely determined by $\rho_{\text{bary}}$** | Conjectured (§3.2) | Requires fixed-point uniqueness, which is empirically supported but mathematically open. |
+| **$\rho_{\text{dark}}$ uniquely determined by $\rho_{\text{bary}}$** | Conjectured (§3.2) | Requires a Lyapunov function proving convergence to a unique attractor. The Kuramoto model's dissipative structure suggests one exists (§7 item 2). |
 
 ### What is predicted
 
@@ -289,7 +291,7 @@ The chain of reasoning, with load-bearing conditionals marked:
 2. The ADM decomposition reveals the Hamiltonian constraint as the stationarity condition with the lapse as multiplier.
 3. **(Conditional)** The Kuramoto-Einstein dictionary identifies the lapse with coherence and the matter density with natural frequency. This is structural, not yet dynamically proved.
 4. The Kuramoto self-consistency equation provides the coupled fixed-point structure. Existence is proved; uniqueness is open.
-5. **(Conditional on uniqueness)** At the unique fixed point, the synchronization deficit (dark matter) would be a functional of the natural frequencies (baryonic matter) alone.
+5. **(Conditional on Lyapunov convergence)** If the dissipative Kuramoto dynamics has a Lyapunov function, the physically realized fixed point is unique, and the synchronization deficit (dark matter) is a functional of the natural frequencies (baryonic matter) alone.
 6. **(Independent of 3–5)** Complementary slackness is the content of the Hamiltonian constraint with non-negative $\rho_{\text{dark}}$.
 7. **(Independent of 3–5)** Renzo's Rule (forward) follows from the algebraic locality of the Hamiltonian constraint.
 8. **(Independent of 3–5)** The no-phantom-features claim follows from the smoothing property of the Green's function kernel.
@@ -303,7 +305,17 @@ Ordered by independence — items that stand without the mapping come first.
 
 1. **Transition zone scatter (independent of mapping, independent of uniqueness).** The derivation predicts maximum Renzo's Rule scatter at $a \sim a_0$, with tighter correspondence in both the deep-MOND and Newtonian regimes. Test against high-resolution SPARC rotation curves with well-measured baryonic profiles. This is the sharpest near-term test because it follows from the Green's function smoothing argument alone (§3.3) and does not require the Kuramoto-Einstein mapping or the fixed-point uniqueness. If it holds, it is independent evidence for the fixed-point structure even before the uniqueness proof is complete.
 
-2. **Uniqueness proof (would close the inverse fully).** Replace the empirical argument for fixed-point uniqueness with a mathematical proof. Candidate approach: show that the Kuramoto self-consistency map is a contraction in an appropriate function space when $\omega(x)$ has the radial monotonicity typical of galaxies. Without this, the inverse Renzo's Rule is proved for features (§3.3) but not for smooth backgrounds (§3.4).
+2. **Lyapunov function for the dissipative Kuramoto dynamics (would close the inverse fully).** The proof strategy in the previous version of this item — showing the self-consistency map is a contraction — points at the wrong thing. Contraction is an algebraic property of the map. Uniqueness of the physically realized fixed point is a *physical* property of the path: dissipation selects it.
+
+   What is needed is a **Lyapunov function** $V[\theta, r]$ for the continuum Kuramoto dynamics on $(\Sigma, \gamma)$ — a functional that decreases monotonically along all trajectories and vanishes only at the fixed point. This would prove convergence to a unique attractor for all physically relevant initial conditions without requiring the map itself to be a contraction (which it probably isn't, in general).
+
+   The Kuramoto model with all-to-all coupling already has one: $V = -\frac{K}{2N}\sum_{i,j}\cos(\theta_i - \theta_j)$. The spatially extended case with $K(x,x') = G_\gamma(x,x')$ is harder because the kernel is inhomogeneous, but the structure should survive: $G_\gamma$ is symmetric and positive-definite (as a Green's function of an elliptic operator), so the quadratic form it defines is a natural Lyapunov candidate.
+
+   If this Lyapunov function exists, it plays exactly the role entropy plays in thermodynamics: it doesn't tell you the equations are asymmetric — it tells you the *physics* is, because dissipation breaks the degeneracy. Multiple fixed points may exist as mathematical solutions (Schauder), but only one is reachable from any low-entropy initial state. The others are separated by Lyapunov barriers that the dissipative dynamics cannot cross.
+
+   This connects directly to the framework's core: gravity is synchronization in a *frictional* medium. The friction is not incidental — it is what makes the fixed point unique. The arrow of time in this framework is the Lyapunov function's monotone descent. A galaxy's rotation curve is unique for its baryonic distribution not because the equations have a unique solution, but because the dissipative path from initial collapse to equilibrium selects one basin.
+
+   Without this, the inverse Renzo's Rule is proved for features (§3.3) but not for smooth backgrounds (§3.4).
 
 3. **Dynamical equivalence of the Kuramoto-Einstein mapping.** The mapping document ([§7.1](kuramoto_einstein_mapping.md)) identifies fields and derivatives but does not verify numerical prefactors. A referee will ask: "Why is the lapse *literally* coherence rather than *formally analogous to* coherence?" The structural identification reproduces the correct ADM equations and the correct MOND scaling — but the full dynamical proof (matching all prefactors, not just structure) would discharge this conditional. Until then, the stability argument (§3.2) inherits the mapping's uncertainty; the smoothing argument (§3.3) and the forward direction (§2) do not.
 
