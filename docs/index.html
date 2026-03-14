@@ -160,6 +160,12 @@ footer {
   </div>
 </nav>
 
+<!-- Document index (non-visible, for search engines / accessibility) -->
+<!-- Main paper: joven_unifying_framework.md -->
+<!-- Kuramoto-Einstein mapping: kuramoto_einstein_mapping.md -->
+<!-- Renzo's Rule formal derivation: renzos_rule_derivation.md -->
+<!-- Companion paper: intersections/joven_stick_slip_dark_matter.md -->
+
 <div class="container">
 
 <!-- ============ HERO ============ -->
@@ -191,6 +197,8 @@ footer {
   <p style="font-size:0.9rem; color:var(--dim);">
     Source: <a href="https://github.com/nickjoven/201/blob/main/joven_unifying_framework.md">joven_unifying_framework.md</a>
     &middot; Companion: <a href="https://github.com/nickjoven/intersections/blob/main/joven_stick_slip_dark_matter.md">joven_stick_slip_dark_matter.md</a>
+    &middot; Mapping: <a href="https://github.com/nickjoven/201/blob/main/kuramoto_einstein_mapping.md">kuramoto_einstein_mapping.md</a>
+    &middot; Derivation: <a href="https://github.com/nickjoven/201/blob/main/renzos_rule_derivation.md">renzos_rule_derivation.md</a>
   </p>
 </section>
 
@@ -340,10 +348,29 @@ footer {
     <p>
       Complementary slackness (KKT conditions) guarantees that every feature in the baryonic
       luminosity profile is mirrored in the rotation curve. This is a structural consequence
-      of local optimization, not an empirical correlation.
+      of local optimization, not an empirical correlation. The objective function is the
+      Einstein-Hilbert action in ADM form; the lapse is the multiplier; the Hamiltonian
+      constraint is the stationarity condition. The conditional from the companion paper
+      (&ldquo;if the gravitational field solves a locally-defined constrained optimization&rdquo;)
+      is now discharged.
     </p>
     <p style="font-size:0.85rem; color:var(--dim);">
-      <a href="https://github.com/nickjoven/intersections/blob/main/joven_stick_slip_dark_matter.md">Companion paper</a> &sect;4.3
+      <a href="https://github.com/nickjoven/intersections/blob/main/joven_stick_slip_dark_matter.md">Companion paper</a> &sect;4.3 &middot;
+      <a href="https://github.com/nickjoven/201/blob/main/renzos_rule_derivation.md">Formal derivation</a> &sect;1&ndash;2
+    </p>
+  </div>
+
+  <div class="card">
+    <h3><span class="tag tag-math">Math</span> Inverse Renzo's Rule (No Phantom Features)</h3>
+    <p>
+      Every <em>localized</em> rotation curve feature has a baryonic origin. The Green's function
+      of the Laplacian is a smoothing operator: it transports influence but cannot sharpen or
+      invent localized features. This is proved from the Poisson equation alone, independent of
+      the Kuramoto-Einstein mapping. The full inverse ($\rho_{\text{dark}}$ uniquely determined
+      by $\rho_{\text{bary}}$) requires fixed-point uniqueness, which is open.
+    </p>
+    <p style="font-size:0.85rem; color:var(--dim);">
+      <a href="https://github.com/nickjoven/201/blob/main/renzos_rule_derivation.md">Formal derivation</a> &sect;3.3&ndash;3.4
     </p>
   </div>
 
@@ -368,6 +395,20 @@ footer {
     </p>
     <p style="font-size:0.85rem; color:var(--dim);">
       <a href="https://github.com/nickjoven/201/blob/main/joven_unifying_framework.md">Main paper</a> &sect;3.3
+    </p>
+  </div>
+
+  <div class="card">
+    <h3><span class="tag tag-math">Math</span> Kuramoto-Einstein Derivative Mapping</h3>
+    <p>
+      The ADM evolution equations have a term-by-term reading as continuum Kuramoto dynamics
+      on a manifold. Extrinsic curvature is phase-weighted desynchronization. The spatial Ricci
+      tensor is phase stiffness. The Hamiltonian constraint is: phase stiffness + desynchronization
+      balance = matter content. The momentum constraint is: divergence of desynchronization = matter
+      current (frame-dragging = synchronization-dragging).
+    </p>
+    <p style="font-size:0.85rem; color:var(--dim);">
+      <a href="https://github.com/nickjoven/201/blob/main/kuramoto_einstein_mapping.md">kuramoto_einstein_mapping.md</a> &sect;3&ndash;4
     </p>
   </div>
 
@@ -488,9 +529,12 @@ footer {
     <p>
       <strong>Resolution:</strong> Complementary slackness (KKT conditions) structurally couples
       the dual variable (dark matter) to the primal variable (baryonic mass) at every radius.
-      It is a theorem, not a correlation.
+      It is a theorem, not a correlation. The inverse also holds: at the Kuramoto-Einstein
+      fixed point, $\rho_{\text{dark}}$ is a functional of $\rho_{\text{bary}}$, so rotation
+      curve features cannot arise without baryonic sources.
       <span class="tag tag-math">Math</span>
-      See <a href="https://github.com/nickjoven/intersections/blob/main/joven_stick_slip_dark_matter.md">companion paper</a> &sect;4.3.
+      See <a href="https://github.com/nickjoven/intersections/blob/main/joven_stick_slip_dark_matter.md">companion paper</a> &sect;4.3 &middot;
+      <a href="https://github.com/nickjoven/201/blob/main/renzos_rule_derivation.md">formal derivation</a>.
     </p>
   </div>
 
@@ -664,8 +708,20 @@ footer {
     <tr>
       <td>Renzo's Rule from complementary slackness</td>
       <td><span class="tag tag-math">Math</span></td>
-      <td><a href="https://github.com/nickjoven/intersections/blob/main/joven_stick_slip_dark_matter.md">Companion</a> &sect;4.3</td>
-      <td>Established</td>
+      <td><a href="https://github.com/nickjoven/intersections/blob/main/joven_stick_slip_dark_matter.md">Companion</a> &sect;4.3 &middot; <a href="https://github.com/nickjoven/201/blob/main/renzos_rule_derivation.md">Formal derivation</a> &sect;1&ndash;2</td>
+      <td>Established &mdash; conditional discharged</td>
+    </tr>
+    <tr>
+      <td>Inverse Renzo's Rule (no phantom features)</td>
+      <td><span class="tag tag-math">Math</span></td>
+      <td><a href="https://github.com/nickjoven/201/blob/main/renzos_rule_derivation.md">Formal derivation</a> &sect;3.3</td>
+      <td>Established for localized features (Poisson smoothing). Full inverse (unique $\rho_{\text{dark}}$) requires uniqueness proof.</td>
+    </tr>
+    <tr>
+      <td>Kuramoto-Einstein derivative mapping</td>
+      <td><span class="tag tag-math">Math</span></td>
+      <td><a href="https://github.com/nickjoven/201/blob/main/kuramoto_einstein_mapping.md">kuramoto_einstein_mapping.md</a> &sect;3&ndash;4</td>
+      <td>Established &mdash; dynamical equivalence (prefactors) remains</td>
     </tr>
     <tr>
       <td>Flat curves from conical geometry</td>
@@ -694,8 +750,8 @@ footer {
     <tr>
       <td>Space as phase shift (ADM reread)</td>
       <td><span class="tag tag-hyp">Hypothesis</span></td>
-      <td>ADM formalism already contains the structure</td>
-      <td>Formal proof that lapse/shift interpretation is complete</td>
+      <td>ADM formalism + <a href="https://github.com/nickjoven/201/blob/main/kuramoto_einstein_mapping.md">Kuramoto-Einstein mapping</a> (lapse = coherence, shift = phase gradient)</td>
+      <td>Dynamical equivalence with matching prefactors</td>
     </tr>
     <tr>
       <td>Universal Rosin (vacuum Stribeck curve)</td>
@@ -735,6 +791,8 @@ footer {
   <h2>Repository &amp; Sources</h2>
   <ul>
     <li><a href="https://github.com/nickjoven/201/blob/main/joven_unifying_framework.md">Main paper</a> &mdash; <em>From Brass Tubes and Metronomes to a Unifying Framework</em></li>
+    <li><a href="https://github.com/nickjoven/201/blob/main/kuramoto_einstein_mapping.md">Kuramoto-Einstein mapping</a> &mdash; <em>Explicit Derivatives</em></li>
+    <li><a href="https://github.com/nickjoven/201/blob/main/renzos_rule_derivation.md">Renzo's Rule derivation</a> &mdash; <em>Forward and Inverse from Synchronization Structure</em></li>
     <li><a href="https://github.com/nickjoven/intersections/blob/main/joven_stick_slip_dark_matter.md">Companion paper</a> &mdash; <em>Stick-Slip Dynamics and the Dark Matter Dual</em></li>
     <li><a href="https://github.com/nickjoven/intersections">intersections</a> &mdash; Notebooks, CVT framework, supporting analysis</li>
     <li><a href="https://github.com/nickjoven/201">201</a> &mdash; This repository</li>
