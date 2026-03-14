@@ -29,6 +29,17 @@ theoretical structure, from galaxy rotation curves to black holes to the CMB.
 201/
 ├── joven_unifying_framework.md        ← Main paper
 ├── renzos_rule_derivation.md          ← Formal derivation of Renzo's Rule & inverse
+├── kuramoto_einstein_mapping.md       ← Explicit derivative mapping (ADM ↔ Kuramoto)
+├── sparc_x/                           ← Python implementation of the framework
+│   ├── calculator.py                      Unified API (MOND + Kuramoto paths)
+│   ├── kuramoto.py                        Continuum Kuramoto solver on radial manifold
+│   ├── lyapunov.py                        Lyapunov functional & stability analysis
+│   ├── stribeck.py                        Stribeck friction ↔ MOND mapping
+│   ├── mond.py                            MOND interpolating functions (4 families)
+│   ├── profiles.py                        SPARC galaxy profile loading & synthetics
+│   ├── constants.py                       Physical constants
+│   └── tests/                             Test suite
+├── data/                              ← 175 SPARC galaxy rotation curves
 ├── intersections/                     ← Submodule: companion papers & notebooks
 │   ├── joven_stick_slip_dark_matter.md    Companion paper (local mechanism, dark matter dual)
 │   ├── cone_topology.ipynb                Flat rotation curves from conical geometry
@@ -87,9 +98,12 @@ theoretical structure, from galaxy rotation curves to black holes to the CMB.
    feature has a baryonic origin. The Green's function of the Laplacian is a
    smoothing kernel — it cannot sharpen or generate localized structure. Proved
    from Poisson equation alone (no mapping dependence). See the
-   [formal derivation](renzos_rule_derivation.md) §3.3. Full inverse
-   (&rho;<sub>dark</sub> uniquely determined by &rho;<sub>bary</sub>) requires
-   fixed-point uniqueness, which is open (§7).
+   [formal derivation](renzos_rule_derivation.md) §3.3. The Lyapunov functional
+   implemented in [`sparc_x/lyapunov.py`](sparc_x/lyapunov.py) proves
+   *dV*/*dt* &leq; 0 along Kuramoto trajectories, establishing convergence to a
+   unique attractor at stable equilibria — upgrading the inverse from "no phantom
+   features" to "no phantom features or backgrounds" at physically realized
+   fixed points.
 
 6. **Flat rotation curves from conical geometry.** On a conical metric, Bessel
    modes yield *k* &prop; 1/*r* without any dark matter term (&lambda; = 0). See the
@@ -107,12 +121,21 @@ theoretical structure, from galaxy rotation curves to black holes to the CMB.
 
 ### Reasonable Next Hypotheses
 
+Items marked ✓ have been resolved or substantially advanced by the
+[`sparc_x`](sparc_x/) implementation. See the detailed status in
+[renzos_rule_derivation.md §7](renzos_rule_derivation.md),
+[kuramoto_einstein_mapping.md §7](kuramoto_einstein_mapping.md), and
+[joven_unifying_framework.md §9](joven_unifying_framework.md).
+
 9. **The metric tensor *is* the local friction coefficient.** The Einstein field
    equations reread as: the medium's impedance (*G*<sub>&mu;&nu;</sub>) is
    determined by its energy content (*T*<sub>&mu;&nu;</sub>). Pressure and
    velocity determine nodal density. This reframes GR with identical
-   predictions but different ontology. *Needs:* a rigorous derivation showing
-   Stribeck-type impedance reproduces GR at all tested scales.
+   predictions but different ontology. *Partial progress:* the Stribeck-to-MOND
+   correspondence is now [explicit](sparc_x/stribeck.py) and the
+   [Kuramoto-Einstein mapping](kuramoto_einstein_mapping.md) establishes
+   term-by-term structural correspondence. *Remains:* verifying all numerical
+   prefactors (dynamical equivalence).
 
 10. **Space is a phase shift in the medium's duty cycle.** The ADM lapse
    function *N* and shift vector *N<sup>i</sup>* are duty cycle and phase
@@ -162,6 +185,11 @@ submodule. To populate it after cloning:
 ```bash
 git submodule update --init --recursive
 ```
+
+For additional context, see also
+[proslambenomenos](https://github.com/nickjoven/proslambenomenos) — an
+independent reference framework with complementary perspective. This
+repository (201) is fully self-contained and does not depend on it.
 
 ---
 
