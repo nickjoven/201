@@ -32,7 +32,7 @@ import numpy as np
 
 from sparc_x.constants import A0, G, KPC, KMS
 from sparc_x.profiles import GalaxyProfile, predict_mond_rc, sparc_prefactor
-from sparc_x.mond import a_obs as mond_a_obs, sigma_static
+from sparc_x.mond import a_obs as mond_a_obs, sigma_static, mu_kuramoto
 from sparc_x.kuramoto import KuramotoSolver, KuramotoState, FixedPointResult
 from sparc_x.lyapunov import stability_analysis, LyapunovResult
 
@@ -157,11 +157,16 @@ class Calculator:
         state = solver.solve()
         self._results.kuramoto_state = state
 
-        # Convert coherence to predicted acceleration and velocity
-        # a ~ c^2 grad(r)  in the Newtonian limit; here we use
-        # a_pred = a_N / mu(x)  with mu approximated by r(x).
-        coherence = np.maximum(state.coherence, 1e-10)
-        a_pred = self.profile.a_N / coherence
+        # Convert coherence to predicted acceleration via Stribeck interpolation.
+        # The Kuramoto order parameter gives  r = sqrt(1 - K_c/K),  so
+        # r^2 = 1 - 1/x  which is mu_kuramoto(x).  We map the solved
+        # coherence field to x = 1/(1 - r^2), then apply the interpolation
+        # function so both MOND and Kuramoto paths agree structurally.
+        r2 = np.clip(state.coherence ** 2, 0.0, 1.0 - 1e-10)
+        x_eff = 1.0 / np.maximum(1.0 - r2, 1e-10)  # effective x = K_eff / K_c
+        mu = mu_kuramoto(x_eff)
+        mu = np.maximum(mu, 1e-10)
+        a_pred = self.profile.a_N / mu
         r_m = self.profile.r_kpc * KPC
         r_m = np.where(r_m > 0, r_m, 1e-10)
         self._results.v_kuramoto = np.sqrt(a_pred * r_m) / KMS

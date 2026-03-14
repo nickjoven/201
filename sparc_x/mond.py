@@ -38,6 +38,21 @@ def mu_rar(x: ArrayLike) -> np.ndarray:
     return 1.0 - np.exp(-np.sqrt(np.maximum(x, 0.0)))
 
 
+def mu_kuramoto(x: ArrayLike) -> np.ndarray:
+    r"""Kuramoto-derived interpolating function: mu = 1 - 1/x  for x > 1.
+
+    Emerges from the square-root onset of the Kuramoto order parameter:
+        r = sqrt(1 - K_c / K)   =>   r^2 = 1 - 1/x
+
+    where x = K_eff / K_c maps to a_N / a0.  The coherence-squared is the
+    MOND interpolating function in this framework.
+
+    Reference: kuramoto_einstein_mapping.md §4.3, §6
+    """
+    x = np.asarray(x, dtype=float)
+    return np.where(x > 1.0, 1.0 - 1.0 / x, 0.0)
+
+
 # ---------------------------------------------------------------------------
 # Inverse:  nu(y)  such that  a_obs = nu(a_N / a0) * a_N
 # ---------------------------------------------------------------------------
@@ -61,6 +76,19 @@ def nu_rar(y: ArrayLike) -> np.ndarray:
     return 1.0 / (1.0 - e)
 
 
+def nu_kuramoto(y: ArrayLike) -> np.ndarray:
+    r"""Inverse (boost) for the Kuramoto interpolation.
+
+    mu = 1 - 1/x  =>  nu = 1/mu = x / (x - 1).
+    For x <= 1 (deep-MOND), use the deep-MOND limit  a_obs ~ sqrt(a_N * a0)
+    which gives  nu = 1 / sqrt(x).
+    """
+    y = np.asarray(y, dtype=float)
+    return np.where(y > 1.0,
+                    y / np.maximum(y - 1.0, 1e-30),
+                    1.0 / np.sqrt(np.maximum(y, 1e-30)))
+
+
 # ---------------------------------------------------------------------------
 # Observed acceleration from Newtonian
 # ---------------------------------------------------------------------------
@@ -75,7 +103,7 @@ def a_obs(a_N: ArrayLike, *, a0: float = A0,
         Newtonian (baryonic) acceleration [m s^-2].
     a0 : float
         MOND acceleration scale.
-    interpolation : {"simple", "standard", "rar"}
+    interpolation : {"simple", "standard", "rar", "kuramoto"}
         Which interpolating function to use.
 
     Returns
@@ -83,7 +111,8 @@ def a_obs(a_N: ArrayLike, *, a0: float = A0,
     a_total : ndarray
         Predicted total acceleration [m s^-2].
     """
-    _nu = {"simple": nu_simple, "standard": nu_standard, "rar": nu_rar}
+    _nu = {"simple": nu_simple, "standard": nu_standard, "rar": nu_rar,
+           "kuramoto": nu_kuramoto}
     if interpolation not in _nu:
         raise ValueError(f"Unknown interpolation {interpolation!r}")
     y = np.asarray(a_N, dtype=float) / a0
