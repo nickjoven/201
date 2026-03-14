@@ -239,7 +239,62 @@ The CMB acoustic peaks are an overtone series ([companion notebook](intersection
 
 ---
 
-## 9. What Remains Open
+## 9. The Quantum Branch of the Stribeck Curve
+
+If the Universal Rosin is a single impedance function evaluated at different scales, then the quantum domain cannot be exempt. The classical Stribeck curve has two branches — velocity-weakening (boundary lubrication) and velocity-strengthening (hydrodynamic/viscous). The framework has so far used only the first. The second has been sitting there, unused.
+
+It is the quantum branch.
+
+### 9.1 The Inversion
+
+| | Galactic (velocity-weakening) | Quantum (velocity-strengthening) |
+|---|---|---|
+| Low coupling | Newtonian (decoupled orbits) | Quantum-coherent (isolated from bath) |
+| At minimum | MOND transition ($a_0$) | Decoherence threshold |
+| High coupling | MOND (synchronized, flat curves) | Classical (decohered, "collapsed") |
+| Phase-locking means | Gravity (collective motion) | Measurement (definite outcome) |
+
+At quantum scales, *weak* environmental coupling preserves coherence and *strong* coupling destroys it. At galactic scales, *weak* acceleration enables collective synchronization and *strong* acceleration decouples orbits. These sit on **opposite branches** of the same Stribeck curve. The Stribeck minimum is the boundary between two synchronization regimes.
+
+### 9.2 "Collapse" Is Synchronization with the Detector
+
+"Observation" is not a special category. It is synchronization of the measured system with the measuring apparatus through the shared medium. A detector is a macroscopic system — $\sim 10^{23}$ oscillators. When a quantum system couples to it, the coupling strength exceeds the Kuramoto threshold:
+
+$$K_{\text{system-detector}} > K_c \implies \text{phase-locking} \implies \text{"collapse"}$$
+
+There is no mystery about *when* it happens: it happens when $K_{\text{eff}} > K_c$ for the system-apparatus coupling. A photon hitting a silver halide grain. An electron reaching a phosphor screen. The threshold is the impedance match between quantum oscillator and macroscopic medium.
+
+This is the metronome picture: take a metronome off the swing and bolt it to a massive table (the detector). It doesn't stop oscillating — it synchronizes with the table. The table is too heavy to move, so the metronome conforms to the table's phase. The metronome has "collapsed" into the table's reference frame.
+
+### 9.3 EPR: Entanglement as Pre-Established Synchronization
+
+Two particles that interacted are two oscillators that phase-locked through the shared medium. When they separate, they carry their phase relationship — not as a local hidden variable (Bell rules that out for local classical variables), but as a synchronization state of the medium itself.
+
+The phase relationship isn't a property of the particles. It is a property of the medium's phase field between them. The medium's impedance at quantum scales preserves phase coherence across spatial separation — the "platform" connecting them hasn't decohered.
+
+Why EPR correlations aren't "spooky": you wouldn't call it spooky if two metronomes on a swing, separated and placed on rigid tables, were later found ticking in phase. They synchronized *before* separation. Measuring one tells you about the other because they share phase history through the medium.
+
+What Bell rules out is *local classical* hidden variables — values carried by the particles independently. But a synchronization state of the medium isn't local to either particle. It is a property of the medium's phase field. The medium is nonlocal in exactly the way QM requires, without requiring "action at a distance" — because it's not action. It's pre-established phase coherence that hasn't yet been disrupted by coupling to a decoherent environment.
+
+### 9.4 $\hbar$ as the Quantum Impedance-Matching Point
+
+$\hbar$ is the unit of action — the unit of phase-space area. In the synchronization picture, $\hbar$ sets the minimum phase-space volume where the medium can maintain coherent oscillation. Just as $a_0$ is the galactic impedance-matching point (where the medium transitions from stiff to compliant), $\hbar$ is the quantum impedance-matching point (where the medium transitions from supporting coherent phase to not supporting it).
+
+The Universal Rosin, then, is not a single number but a function with at least two critical points:
+
+| Critical point | Scale | Physical meaning |
+|---|---|---|
+| $\hbar$ | Quantum | Minimum phase-space area for coherent oscillation |
+| $a_0$ | Galactic | Acceleration at which collective synchronization activates |
+| $\Lambda$? | Cosmological | Impedance of the vacuum at the largest scales |
+
+These may all be aspects of the same curve — the vacuum's Stribeck function evaluated at different scales.
+
+See the [quantum Stribeck notebook](quantum_stribeck.ipynb) for simulations and extended discussion.
+
+---
+
+## 10. What Remains Open
 
 Items marked ✓ have been resolved or substantially advanced by the [`sparc_x`](sparc_x/) implementation and the [formal derivation of Renzo's Rule](renzos_rule_derivation.md). See also the resolved items in [renzos_rule_derivation.md §7](renzos_rule_derivation.md) and [kuramoto_einstein_mapping.md §7](kuramoto_einstein_mapping.md).
 
@@ -252,6 +307,10 @@ Items marked ✓ have been resolved or substantially advanced by the [`sparc_x`]
 4. **Mathematical foundations.** The [CVT synthesis](intersections/cvt/synthesis.md) identifies the three fields needed: **category theory** (structure of the forward map from oscillator configurations to synchronized states), **ergodic theory** (conditions under which synchronization is an equilibrium), and **information geometry** (measure over the space of paths to synchronization). All three exist independently. The combination targeting this framework does not yet exist. *Partial progress:* The Lyapunov functional implemented in [`sparc_x/lyapunov.py`](sparc_x/lyapunov.py) provides the ergodic-theory anchor — it proves convergence to a unique attractor under the dissipative Kuramoto dynamics, establishing the equilibrium selection mechanism.
 
 5. **The Universal Rosin as a measurable quantity.** Is the vacuum's Stribeck curve measurable independently of gravitational phenomenology? If so, it becomes a prediction rather than a reframing. Candidate: the relationship between the cosmological constant $\Lambda$ and $a_0$ — both may be aspects of the same impedance function evaluated at different scales.
+
+6. **Quantitative decoherence rates.** Can the Stribeck-Kuramoto model reproduce measured decoherence timescales for specific systems (superconducting qubits, photon polarization, trapped ions)? This would promote the quantum branch (§9) from structural argument to quantitative prediction.
+
+7. **Bell inequality from the medium.** The framework must reproduce Bell violation at the same quantitative level as standard QM. The medium's nonlocality (phase-field coherence across spatial separation) must produce the correct $2\sqrt{2}$ Tsirelson bound.
 
 ---
 

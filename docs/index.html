@@ -153,6 +153,7 @@ footer {
     <a href="#experiments">Experiments</a>
     <a href="#mechanism">Mechanism</a>
     <a href="#results">Results</a>
+    <a href="#quantum">Quantum</a>
     <a href="#resolutions">Resolutions</a>
     <a href="#predictions">Predictions</a>
     <a href="#status">Status Map</a>
@@ -493,6 +494,119 @@ footer {
   </div>
 </section>
 
+<!-- ============ QUANTUM ============ -->
+<section id="quantum">
+  <h2>The Quantum Branch &mdash; Forced by the Rosin</h2>
+  <p>
+    If the Universal Rosin is a single impedance function evaluated at different scales,
+    then carving out an exception for quantum coherence would be arbitrary. The classical
+    Stribeck curve has <strong>two branches</strong>: velocity-weakening (boundary lubrication)
+    and velocity-strengthening (hydrodynamic / viscous). The framework has so far used only
+    the first. The second has been sitting there unused. It is the quantum branch.
+  </p>
+
+  <div class="flow">
+    <div class="flow-box">Velocity-weakening<br><small>Galactic / MOND</small></div>
+    <span class="flow-arrow">&larr;</span>
+    <div class="flow-box" style="border-color: var(--accent);">Stribeck minimum<br><small>Impedance match</small></div>
+    <span class="flow-arrow">&rarr;</span>
+    <div class="flow-box">Velocity-strengthening<br><small>Quantum / decoherence</small></div>
+  </div>
+
+  <div class="card">
+    <h3><span class="tag tag-hyp">Hypothesis</span> Decoherence Is the Quantum Kuramoto Transition</h3>
+    <p>
+      On the <strong>galactic branch</strong> (velocity-weakening): weak acceleration enables
+      collective synchronization (MOND); strong acceleration decouples orbits (Newtonian).
+    </p>
+    <p>
+      On the <strong>quantum branch</strong> (velocity-strengthening): weak environmental coupling
+      preserves phase coherence (entanglement, superposition); strong environmental coupling
+      destroys it (decoherence, &ldquo;collapse&rdquo;).
+    </p>
+    <table>
+      <tr><th></th><th>Galactic (left branch)</th><th>Quantum (right branch)</th></tr>
+      <tr><td>Low coupling</td><td>Newtonian (decoupled)</td><td>Quantum-coherent (isolated)</td></tr>
+      <tr><td>At minimum</td><td>MOND transition ($a_0$)</td><td>Decoherence threshold</td></tr>
+      <tr><td>High coupling</td><td>MOND (synchronized)</td><td>Classical (decohered)</td></tr>
+      <tr><td>Phase-locking means</td><td>Gravity (collective motion)</td><td>Measurement (definite outcome)</td></tr>
+    </table>
+    <p>
+      The inversion is the key: opposite branches, same curve, same mechanism. The
+      &ldquo;measurement problem&rdquo; is the MOND transition read on the other branch.
+    </p>
+    <p><strong>Why reasonable:</strong> this is not a new claim &mdash; it is forced by the
+      framework&rsquo;s own universality requirement. If the Rosin is universal, the quantum
+      domain cannot be exempt.</p>
+    <p style="font-size:0.85rem; color:var(--dim);">
+      <a href="https://github.com/nickjoven/201/blob/main/quantum_stribeck.ipynb">quantum_stribeck.ipynb</a> &middot;
+      Full derivation and simulations
+    </p>
+  </div>
+
+  <div class="card">
+    <h3><span class="tag tag-hyp">Hypothesis</span> &ldquo;Collapse&rdquo; Is Synchronization with the Detector</h3>
+    <p>
+      &ldquo;Observation&rdquo; is not a special category. It is synchronization of the measured
+      system with the measuring apparatus through the shared medium. A detector is a macroscopic
+      system &mdash; $\sim 10^{23}$ oscillators. When a quantum system couples to it:
+    </p>
+    <p style="text-align:center; font-size:1.1rem;">
+      $K_{\text{system-detector}} > K_c \implies$ phase-locking $\implies$ &ldquo;collapse&rdquo;
+    </p>
+    <p>
+      There is no mystery about <em>when</em> it happens: it happens when $K_{\text{eff}} > K_c$
+      for the system-apparatus coupling. A photon hitting a silver halide grain. An electron
+      reaching a phosphor screen. The threshold is the impedance match between quantum oscillator
+      and macroscopic medium.
+    </p>
+  </div>
+
+  <div class="card">
+    <h3><span class="tag tag-hyp">Hypothesis</span> EPR: Entanglement as Pre-Established Synchronization</h3>
+    <p>
+      Two particles that interacted are two oscillators that <strong>phase-locked through the
+      shared medium</strong>. When they separate, the phase relationship is carried by the
+      medium&rsquo;s phase field &mdash; not as a local hidden variable (Bell rules those out),
+      but as a synchronization state of the medium itself.
+    </p>
+    <p>
+      You wouldn&rsquo;t call it spooky if two metronomes on a swing, separated and placed on
+      rigid tables, were later found ticking in phase. They synchronized <em>before</em>
+      separation. The medium is nonlocal in exactly the way QM requires, without action at
+      a distance &mdash; it&rsquo;s pre-established phase coherence that hasn&rsquo;t yet been
+      disrupted by coupling to a decoherent environment.
+    </p>
+    <p>
+      <strong>Connection to Non-Injectivity:</strong> once the system synchronizes with the
+      detector, it doesn&rsquo;t matter which path led to the outcome. The synchronized state
+      has multiple lineages. History is gauge. The detector click is ground truth.
+    </p>
+  </div>
+
+  <div class="card">
+    <h3><span class="tag tag-hyp">Hypothesis</span> $\hbar$ as the Quantum Impedance-Matching Point</h3>
+    <p>
+      Just as $a_0$ is the galactic impedance-matching point (where the medium transitions from
+      stiff to compliant), $\hbar$ is the quantum impedance-matching point (where the medium
+      transitions from supporting coherent phase to not supporting it).
+    </p>
+    <p>
+      $\hbar$ sets the minimum phase-space volume where the medium can maintain coherent
+      oscillation. The Universal Rosin has at least two critical points:
+    </p>
+    <table>
+      <tr><th>Critical point</th><th>Scale</th><th>Physical meaning</th></tr>
+      <tr><td>$\hbar$</td><td>Quantum</td><td>Minimum phase-space area for coherent oscillation</td></tr>
+      <tr><td>$a_0$</td><td>Galactic</td><td>Acceleration at which collective synchronization activates</td></tr>
+      <tr><td>$\Lambda$?</td><td>Cosmological</td><td>Impedance of the vacuum at the largest scales</td></tr>
+    </table>
+    <p><strong>What&rsquo;s needed:</strong> quantitative decoherence rates from the Stribeck-Kuramoto
+      model, reproducing measured timescales for specific systems (superconducting qubits, photon
+      polarization). Also: Bell violation at the correct $2\sqrt{2}$ Tsirelson bound.</p>
+  </div>
+</section>
+
 <!-- ============ RESOLUTIONS ============ -->
 <section id="resolutions">
   <h2>Open Questions in Other Frameworks &mdash; Resolved Here</h2>
@@ -603,6 +717,46 @@ footer {
       <span class="tag tag-math">Math</span> The Lagrangian relaxation derivation is rigorous.
       <span class="tag tag-hyp">Hypothesis</span> That the physical dark matter <em>is</em>
       this mathematical object (rather than merely modeled by it) is the interpretive leap.
+    </p>
+  </div>
+
+  <div class="card">
+    <h3>What is &ldquo;measurement&rdquo; and when does collapse happen?</h3>
+    <p><strong>Framework with the question:</strong> Quantum mechanics (Copenhagen interpretation)</p>
+    <p>
+      The Copenhagen interpretation says observation collapses the wavefunction but never
+      defines what constitutes an observation. This is the measurement problem &mdash; the
+      most fundamental open question in quantum foundations.
+    </p>
+    <p>
+      <strong>Resolution:</strong> Measurement is synchronization of the quantum system with
+      the detector. &ldquo;Collapse&rdquo; happens when $K_{\text{system-detector}} > K_c$ &mdash;
+      when the coupling between the quantum oscillator and the macroscopic bath exceeds the
+      Kuramoto threshold. This is the same phase transition as the MOND transition, read on
+      the viscous (velocity-strengthening) branch of the Stribeck curve.
+      <span class="tag tag-hyp">Hypothesis</span> The structural identification with the
+      Kuramoto transition is clear; quantitative agreement with measured decoherence rates
+      would promote this to established.
+    </p>
+  </div>
+
+  <div class="card">
+    <h3>Why are EPR correlations nonlocal?</h3>
+    <p><strong>Framework with the question:</strong> Quantum mechanics</p>
+    <p>
+      Bell&rsquo;s theorem rules out local hidden variables, yet entangled particles show
+      instantaneous correlations across arbitrary distances. Einstein called this &ldquo;spooky
+      action at a distance.&rdquo;
+    </p>
+    <p>
+      <strong>Resolution:</strong> Entanglement is pre-established phase coherence in the
+      medium. Two particles that interacted are two oscillators that phase-locked through
+      the shared medium. The phase relationship is a property of the medium&rsquo;s phase
+      field, not of either particle locally. The medium is nonlocal in exactly the way QM
+      requires &mdash; without action at a distance, because it&rsquo;s not action. It&rsquo;s
+      synchronization that hasn&rsquo;t yet been disrupted.
+      <span class="tag tag-hyp">Hypothesis</span> Must reproduce Bell violation at the
+      $2\sqrt{2}$ Tsirelson bound.
     </p>
   </div>
 
@@ -770,6 +924,24 @@ footer {
       <td><span class="tag tag-hyp">Hypothesis</span></td>
       <td>Mass-independence of 3:2 ratio</td>
       <td>QPO onset vs. disk properties (mass-independent)</td>
+    </tr>
+    <tr>
+      <td>Decoherence = quantum Kuramoto transition</td>
+      <td><span class="tag tag-hyp">Hypothesis</span></td>
+      <td><a href="https://github.com/nickjoven/201/blob/main/quantum_stribeck.ipynb">quantum_stribeck.ipynb</a></td>
+      <td>Quantitative decoherence rates for specific systems</td>
+    </tr>
+    <tr>
+      <td>&ldquo;Collapse&rdquo; = synchronization with detector</td>
+      <td><span class="tag tag-hyp">Hypothesis</span></td>
+      <td>Forced by Universal Rosin universality</td>
+      <td>Reproduce Bell violation at $2\sqrt{2}$ Tsirelson bound</td>
+    </tr>
+    <tr>
+      <td>$\hbar$ as quantum impedance-matching point</td>
+      <td><span class="tag tag-hyp">Hypothesis</span></td>
+      <td>Structural parallel to $a_0$ at galactic scales</td>
+      <td>Measurable Stribeck minimum between quantum and classical regimes</td>
     </tr>
     <tr>
       <td>Bullet Cluster compatibility</td>

@@ -39,6 +39,7 @@ theoretical structure, from galaxy rotation curves to black holes to the CMB.
 │   ├── profiles.py                        SPARC galaxy profile loading & synthetics
 │   ├── constants.py                       Physical constants
 │   └── tests/                             Test suite
+├── quantum_stribeck.ipynb             ← Quantum branch of the Stribeck curve
 ├── data/                              ← 175 SPARC galaxy rotation curves
 ├── intersections/                     ← Submodule: companion papers & notebooks
 │   ├── joven_stick_slip_dark_matter.md    Companion paper (local mechanism, dark matter dual)
@@ -159,6 +160,19 @@ Items marked ✓ have been resolved or substantially advanced by the
     mergers, synchronization tracks the collisionless component while gas
     decouples. Plausible within the framework but undemonstrated.
 
+14. **The quantum branch of the Stribeck curve.** The classical Stribeck
+    curve has two branches: velocity-weakening (galactic/MOND) and
+    velocity-strengthening (viscous). If the Rosin is universal, the
+    viscous branch is the quantum regime: weak environmental coupling
+    preserves phase coherence (entanglement), strong coupling destroys
+    it (decoherence). "Collapse" is synchronization of a quantum system
+    with a macroscopic detector ($K_{\text{eff}} > K_c$). $\hbar$ is the
+    quantum impedance-matching point, parallel to $a_0$ at galactic scales.
+    *Forced by the framework's universality requirement.* See the
+    [quantum Stribeck notebook](quantum_stribeck.ipynb). *Needs:*
+    quantitative decoherence rates; Bell violation at the $2\sqrt{2}$
+    Tsirelson bound.
+
 ---
 
 ## Open Questions in Other Frameworks This Resolves
@@ -171,6 +185,8 @@ Items marked ✓ have been resolved or substantially advanced by the
 | Why do galaxy rotation curves flatten? | Both | On conical geometry, Bessel modes yield *k* &prop; 1/*r* automatically; or equivalently, synchronization coupling produces flat coherence beyond the threshold radius |
 | Why are QPO frequency ratios approximately mass-independent? | GR | Synchronization ratios are set by medium nodal geometry, not by gravitational source mass |
 | What is dark matter? | &Lambda;CDM | Shadow price (Lagrange multiplier) the gravitational field pays when baryonic matter is insufficient for synchronization — it is constraint structure, not substance |
+| What is "measurement" / when does collapse happen? | QM (Copenhagen) | Measurement is synchronization with the detector: $K_{\text{system-detector}} > K_c$. Same phase transition as MOND, on the viscous branch of the Stribeck curve |
+| Why are EPR correlations nonlocal? | QM | Pre-established phase coherence in the medium. Not action at a distance — synchronization that hasn't been disrupted |
 | What happens at a singularity? | GR | Feigenbaum cascade accumulation point: the medium transitions from oscillation to permanent stick — a phase transition, not a breakdown of physics |
 
 ---
