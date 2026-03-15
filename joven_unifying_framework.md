@@ -2,7 +2,7 @@
 
 **N. Joven** ([ORCID: 0009-0008-0679-0812](https://orcid.org/0009-0008-0679-0812))
 March 2026
-*Working paper — extends [Stick-Slip Dynamics and the Dark Matter Dual](intersections/joven_stick_slip_dark_matter.md)*
+*Working paper — extends "Stick-Slip Dynamics and the Dark Matter Dual" (Joven, 2026)*
 
 ---
 
@@ -42,7 +42,7 @@ Stick-slip is the mechanism. Synchronization is the result. The medium's frictio
 
 ## 2. The Local Mechanism: Stick-Slip (Summary)
 
-The [companion paper](intersections/joven_stick_slip_dark_matter.md) establishes the local mechanism in detail. The essential results:
+The companion paper ("Stick-Slip Dynamics and the Dark Matter Dual," Joven, 2026) establishes the local mechanism in detail. The essential results:
 
 1. **Bidirectional bifurcation.** The stick-slip regime is entered by slow drive (galaxy outskirts: $a < a_0$) *or* by overwhelming force (inner accretion disks: MRI critical wavelength). Two causal paths, one output (§1–2 of companion).
 
@@ -149,7 +149,7 @@ The event horizon is the surface where the duty cycle reaches 1.0 — pure stick
 
 ### 5.2 Connection to the Feigenbaum Cascade
 
-The [companion notebooks](intersections/cvt/notebooks/06_feigenbaum_cascade.ipynb) demonstrate that the approach to the stuck singularity follows a Feigenbaum cascade: period-doubling from $f \to f/2 \to f/4 \to \ldots$ at a universal rate $\delta \approx 4.669$. The accumulation point of the cascade is the boundary of chaos. Beyond it lies the regime where predictable oscillation ceases.
+The Feigenbaum cascade analysis (companion notebook `06_feigenbaum_cascade.ipynb`) demonstrates that the approach to the stuck singularity follows a Feigenbaum cascade: period-doubling from $f \to f/2 \to f/4 \to \ldots$ at a universal rate $\delta \approx 4.669$. The accumulation point of the cascade is the boundary of chaos. Beyond it lies the regime where predictable oscillation ceases.
 
 In gravitational terms: approaching a black hole, the medium undergoes successive bifurcations. The Feigenbaum constant sets the rate. The event horizon is the accumulation point. The singularity is what lies beyond — the regime where the vibrating-medium description breaks down entirely, not because the theory fails, but because the medium's response has left the domain where oscillation is defined.
 
@@ -194,23 +194,23 @@ This is the content of the Einstein field equations, reread: the stress-energy t
 
 ### 7.1 Lagrangian Relaxation
 
-Synchronization that *fails* — where the medium cannot phase-lock the oscillators with baryonic matter alone — requires a compensating term. In the Lagrangian relaxation framing ([companion paper §3–4](intersections/joven_stick_slip_dark_matter.md)), this compensating term is the dual variable $\lambda$. It is the shadow price: the cost the gravitational field pays to enforce synchronization where the Rosin is insufficient.
+Synchronization that *fails* — where the medium cannot phase-lock the oscillators with baryonic matter alone — requires a compensating term. In the Lagrangian relaxation framing (companion paper §3–4), this compensating term is the dual variable $\lambda$. It is the shadow price: the cost the gravitational field pays to enforce synchronization where the Rosin is insufficient.
 
 Dark matter halos *are* failed synchronization, priced and allocated by the optimization.
 
 ### 7.2 Complementary Slackness and Renzo's Rule
 
-Renzo's Rule — every baryonic feature has a rotation-curve counterpart — follows from local complementary slackness ([companion paper §4.3](intersections/joven_stick_slip_dark_matter.md)). In the synchronization framing: a local baryonic feature changes the local impedance, which changes the local coupling strength, which changes the local synchronization deficit, which changes the local shadow price. The coupling is structural because the Rosin is local. The [formal derivation](renzos_rule_derivation.md) discharges the conditional from the companion paper by identifying the optimization structure as the Einstein-Hilbert action itself, and proves the inverse: at the Kuramoto-Einstein fixed point, $\rho_{\text{dark}}$ is a functional of $\rho_{\text{bary}}$, so every rotation curve feature has a baryonic origin.
+Renzo's Rule — every baryonic feature has a rotation-curve counterpart — follows from local complementary slackness (companion paper §4.3). In the synchronization framing: a local baryonic feature changes the local impedance, which changes the local coupling strength, which changes the local synchronization deficit, which changes the local shadow price. The coupling is structural because the Rosin is local. The formal derivation ("Renzo's Rule and Its Inverse," Joven, 2026) discharges the conditional from the companion paper by identifying the optimization structure as the Einstein-Hilbert action itself, and proves the inverse: at the Kuramoto-Einstein fixed point, $\rho_{\text{dark}}$ is a functional of $\rho_{\text{bary}}$, so every rotation curve feature has a baryonic origin.
 
 ### 7.3 Cone Topology
 
-The [cone topology notebook](intersections/cone_topology.ipynb) showed that on a conical metric, $k \propto 1/r$ emerges automatically from Bessel modes, producing flat rotation curves without any dark matter ($\lambda = 0$). In the synchronization framing: on a cone, the medium's geometry *inherently* produces impedance matching at all radii. The oscillators synchronize without a penalty term. The Rosin is built into the shape.
+The cone topology analysis ("Cone Topology and the Origin of Flat Rotation," Joven, 2026) showed that on a conical metric, $k \propto 1/r$ emerges automatically from Bessel modes, producing flat rotation curves without any dark matter ($\lambda = 0$). In the synchronization framing: on a cone, the medium's geometry *inherently* produces impedance matching at all radii. The oscillators synchronize without a penalty term. The Rosin is built into the shape.
 
 This suggests that the "dark matter problem" may be a coordinate artifact — the cost of assuming Euclidean topology for a medium that is actually conical.
 
 ### 7.4 Non-Injectivity
 
-The [Law of Genealogical Non-Injectivity](intersections/cvt/laws/noninjectivity.md) states that at equilibrium, the measure over all paths to a given state is uniform. In the synchronization framing: once oscillators are phase-locked, it doesn't matter *how* they got there. The synchronized state has multiple lineages (many initial phase configurations lead to the same final state), and no lineage is privileged. History is gauge. The present is ground truth.
+The Law of Genealogical Non-Injectivity (Joven, 2026) states that at equilibrium, the measure over all paths to a given state is uniform. In the synchronization framing: once oscillators are phase-locked, it doesn't matter *how* they got there. The synchronized state has multiple lineages (many initial phase configurations lead to the same final state), and no lineage is privileged. History is gauge. The present is ground truth.
 
 ---
 
@@ -227,7 +227,7 @@ This is the tabletop version of measuring $a_0$.
 
 ### 8.2 Cylinder Stick-Slip
 
-The [companion notebook](intersections/09_cylinder_stick_slip.ipynb) proposes a thin-walled tube with tangential friction drive. In the synchronization framing: the azimuthal modes ($m = 2, 3$) are coupled oscillators on a cylindrical platform. Their frequency ratio ($3:2$) is a synchronization ratio, set by nodal geometry. The prediction: at critical drive, $m = 3$ activates alongside $m = 2$ as a synchronized pair, not as independent excitations.
+The cylinder stick-slip analysis (companion notebook `09_cylinder_stick_slip.ipynb`) proposes a thin-walled tube with tangential friction drive. In the synchronization framing: the azimuthal modes ($m = 2, 3$) are coupled oscillators on a cylindrical platform. Their frequency ratio ($3:2$) is a synchronization ratio, set by nodal geometry. The prediction: at critical drive, $m = 3$ activates alongside $m = 2$ as a synchronized pair, not as independent excitations.
 
 ### 8.3 QPO Frequency Ratios
 
@@ -235,7 +235,7 @@ If QPOs are synchronization ratios rather than orbital resonances, their values 
 
 ### 8.4 CMB Peaks as Primordial Synchronization
 
-The CMB acoustic peaks are an overtone series ([companion notebook](intersections/cvt/notebooks/05_cmb_overtone_comparison.ipynb)). In the synchronization framing: the baryon-photon plasma is a medium in which oscillators (density perturbations at each scale) couple through the shared pressure field. The peaks mark the scales at which synchronization is complete at the moment of decoupling. The Sachs-Wolfe plateau ($\ell < 100$) marks scales too large to synchronize within the available time — the platform is too heavy for those oscillators to move.
+The CMB acoustic peaks are an overtone series (companion notebook `05_cmb_overtone_comparison.ipynb`). In the synchronization framing: the baryon-photon plasma is a medium in which oscillators (density perturbations at each scale) couple through the shared pressure field. The peaks mark the scales at which synchronization is complete at the moment of decoupling. The Sachs-Wolfe plateau ($\ell < 100$) marks scales too large to synchronize within the available time — the platform is too heavy for those oscillators to move.
 
 ---
 
@@ -290,21 +290,21 @@ The Universal Rosin, then, is not a single number but a function with at least t
 
 These may all be aspects of the same curve — the vacuum's Stribeck function evaluated at different scales.
 
-See the [quantum Stribeck notebook](quantum_stribeck.ipynb) for simulations and extended discussion.
+See the quantum Stribeck notebook (`quantum_stribeck.ipynb`) for simulations and extended discussion.
 
 ---
 
 ## 10. What Remains Open
 
-Items marked ✓ have been resolved or substantially advanced by the [`sparc_x`](sparc_x/) implementation and the [formal derivation of Renzo's Rule](renzos_rule_derivation.md). See also the resolved items in [renzos_rule_derivation.md §7](renzos_rule_derivation.md) and [kuramoto_einstein_mapping.md §7](kuramoto_einstein_mapping.md).
+Items marked ✓ have been resolved or substantially advanced by the `sparc_x` Python implementation and the formal derivation of Renzo's Rule (Joven, 2026). See also the Kuramoto-Einstein mapping document for resolved items on the derivative-level correspondence.
 
-1. **Formal derivation.** The metric-as-friction-coefficient claim needs a rigorous mathematical derivation showing that the Einstein field equations, rewritten in terms of a Stribeck-type impedance function, reproduce GR predictions at all scales where GR is tested. This is a mathematical program at the intersection of Riemannian geometry and tribology. *Partial progress:* The [`sparc_x/stribeck.py`](sparc_x/stribeck.py) module demonstrates that a Stribeck friction curve with $\delta = 0.5$ recovers the RAR interpolating function exactly, and the [Kuramoto-Einstein mapping](kuramoto_einstein_mapping.md) establishes the term-by-term structural correspondence. What remains is verifying all numerical prefactors (dynamical equivalence) and extending to all tested GR scales.
+1. **Formal derivation.** The metric-as-friction-coefficient claim needs a rigorous mathematical derivation showing that the Einstein field equations, rewritten in terms of a Stribeck-type impedance function, reproduce GR predictions at all scales where GR is tested. *Partial progress:* A Stribeck friction curve with exponent $\delta = 0.5$ recovers the RAR interpolating function $\mu(x) = 1 - \exp(-\sqrt{x})$ exactly, and the Kuramoto-Einstein mapping establishes the term-by-term structural correspondence with the ADM formulation. What remains is verifying all numerical prefactors (dynamical equivalence) and extending to all tested GR scales.
 
 2. **Cosmological scales.** The framework operates at galaxy and cluster scales. Reproducing CMB acoustic peaks, baryon acoustic oscillations, and the matter power spectrum at sub-percent accuracy requires extending the synchronization model to the homogeneous expanding background — a medium whose impedance changes with cosmic time.
 
 3. **The Bullet Cluster.** If gravity is synchronization through the medium, the Bullet Cluster requires that synchronization can decouple from the baryonic gas during a violent merger and track the collisionless component (galaxies + whatever carries the metric constraint). This is plausible but undemonstrated.
 
-4. **Mathematical foundations.** The [CVT synthesis](intersections/cvt/synthesis.md) identifies the three fields needed: **category theory** (structure of the forward map from oscillator configurations to synchronized states), **ergodic theory** (conditions under which synchronization is an equilibrium), and **information geometry** (measure over the space of paths to synchronization). All three exist independently. The combination targeting this framework does not yet exist. *Partial progress:* The Lyapunov functional implemented in [`sparc_x/lyapunov.py`](sparc_x/lyapunov.py) provides the ergodic-theory anchor — it proves convergence to a unique attractor under the dissipative Kuramoto dynamics, establishing the equilibrium selection mechanism.
+4. **Mathematical foundations.** The CVT synthesis identifies three fields needed: **category theory** (structure of the forward map from oscillator configurations to synchronized states), **ergodic theory** (conditions under which synchronization is an equilibrium), and **information geometry** (measure over the space of paths to synchronization). All three exist independently; the combination targeting this framework does not yet. *Partial progress:* A Lyapunov functional for the dissipative Kuramoto dynamics proves convergence to a unique attractor, establishing the equilibrium selection mechanism (see the Lyapunov uniqueness document).
 
 5. **The Universal Rosin as a measurable quantity.** Is the vacuum's Stribeck curve measurable independently of gravitational phenomenology? If so, it becomes a prediction rather than a reframing. Candidate: the relationship between the cosmological constant $\Lambda$ and $a_0$ — both may be aspects of the same impedance function evaluated at different scales.
 
@@ -316,8 +316,22 @@ Items marked ✓ have been resolved or substantially advanced by the [`sparc_x`]
 
 ## Acknowledgments
 
-This work builds directly on the [Stick-Slip Dynamics and the Dark Matter Dual](intersections/joven_stick_slip_dark_matter.md) paper and the [Consistency Vector Theory](intersections/cvt/) framework in the intersections repository. The metronome synchronization analogy was developed in conversation with large language models (DeepSeek, Google AI) and refined through the correspondence tables shown in the accompanying screenshots.
+This work builds on "Stick-Slip Dynamics and the Dark Matter Dual" (Joven, 2026) and the Consistency Vector Theory framework. The metronome synchronization analogy was developed in conversation with large language models (Claude, DeepSeek, Google AI).
 
 ---
 
-*License: [CC0](LICENSE) — No rights reserved.*
+## Summary
+
+**Claim.** Gravity is synchronization through a frictional medium. The metric tensor is the local friction coefficient of the vacuum; the MOND scale $a_0$ is the impedance-matching point where the medium transitions between stiff (Newtonian) and compliant (synchronized) regimes.
+
+**Two experiments.** A bowed brass tube (stick-slip bifurcation: the local mechanism) and metronomes on a swing (Kuramoto synchronization: the global result) demonstrate the same physics at tabletop scale.
+
+**Key identifications.** The ADM lapse function $N$ is the Kuramoto coherence $r$. The extrinsic curvature $\mathcal{K}_{ij}$ is the phase-weighted desynchronization rate. The Hamiltonian constraint is the synchronization self-consistency condition. Dark matter is the shadow price of failed synchronization.
+
+**Predictions.** (1) Renzo's Rule from complementary slackness. (2) MOND scaling from the square-root onset of the Kuramoto order parameter. (3) QPO frequency ratios from nodal geometry. (4) Decoherence as the quantum branch of the Stribeck curve. (5) No direct detection of dark matter particles.
+
+**Open.** Cosmological scaling, Bullet Cluster simulation, dynamical equivalence (all numerical prefactors), Bell inequality from the medium, quantitative decoherence rates.
+
+---
+
+*License: CC0 — No rights reserved.*

@@ -2,19 +2,19 @@
 
 **N. Joven** ([ORCID: 0009-0008-0679-0812](https://orcid.org/0009-0008-0679-0812))
 March 2026
-*Technical supplement to [Gravity as Synchronization in a Frictional Medium](joven_unifying_framework.md)*
+*Technical supplement to "Gravity as Synchronization in a Frictional Medium" (Joven, 2026)*
 
 ---
 
 ## Motivation
 
-The [companion paper](intersections/joven_stick_slip_dark_matter.md) §4.3 derives Renzo's Rule — every feature in the baryonic luminosity profile is mirrored in the rotation curve — from complementary slackness. But that derivation is conditional: *if* the gravitational field solves a locally-defined constrained optimization, *then* the KKT conditions guarantee the coupling. Three things remain open:
+The companion paper ("Stick-Slip Dynamics and the Dark Matter Dual," Joven, 2026) §4.3 derives Renzo's Rule — every feature in the baryonic luminosity profile is mirrored in the rotation curve — from complementary slackness. But that derivation is conditional: *if* the gravitational field solves a locally-defined constrained optimization, *then* the KKT conditions guarantee the coupling. Three things remain open:
 
 1. **The objective function.** KKT conditions are consequences of an optimization problem. What is being minimized, subject to what?
 2. **The primal-dual coupling.** The companion notebook fixes the primal variables and updates only the dual. The coupled fixed-point — where the metric responds to $\lambda$ and $\lambda$ responds to the metric — is undemonstrated.
 3. **The inverse.** Renzo's Rule says baryonic features produce rotation curve features. The inverse — every rotation curve feature has a baryonic origin — requires ruling out phantom structure in $\lambda(r)$ that has no baryonic counterpart.
 
-The [Kuramoto-Einstein mapping](kuramoto_einstein_mapping.md) provides ingredients toward all three. This document closes the first two cleanly and advances the third — but with a residual gap that we flag explicitly (§3.4).
+The Kuramoto-Einstein mapping (Joven, 2026) provides ingredients toward all three. This document closes the first two cleanly and advances the third — but with a residual gap that we flag explicitly (§3.4).
 
 ---
 
@@ -22,7 +22,7 @@ The [Kuramoto-Einstein mapping](kuramoto_einstein_mapping.md) provides ingredien
 
 ### 1.1 The Action
 
-We work in the ADM formalism with the Kuramoto dictionary established in the [mapping document](kuramoto_einstein_mapping.md) §2. The gravitational action in ADM form is:
+We work in the ADM formalism with the Kuramoto dictionary established in the mapping document §2. The gravitational action in ADM form is:
 
 $$S_{\text{grav}}[\gamma_{ij}, \mathcal{K}_{ij}, N, N^i] = \int dt \int_\Sigma d^3x \, N\sqrt{\gamma} \left( {}^{(3)}R + \mathcal{K}^2 - \mathcal{K}_{ij}\mathcal{K}^{ij} \right)$$
 
@@ -189,7 +189,7 @@ The inverse Renzo's Rule as stated — "every rotation curve feature has a baryo
 
 2. **The stability argument (§3.2) depends on the Kuramoto-Einstein mapping.** The claim that the feedback loop $\delta\rho_{\text{dark}} \to \delta\gamma \to \delta K \to \delta r \to \delta\rho_{\text{dark}}$ has loop gain below unity at stable fixed points uses the identification $N \leftrightarrow r$ and the self-consistency structure of the Kuramoto order parameter. If the mapping is an analogy rather than an identity, this part of the argument carries the mapping's uncertainty. The smoothing argument (§3.3) does not share this dependence.
 
-3. **The mapping itself is structural, not yet dynamical.** The [Kuramoto-Einstein mapping](kuramoto_einstein_mapping.md) identifies fields and derivatives term by term. It does not yet verify numerical prefactors or prove dynamical equivalence (mapping document §7.1). A physicist will ask: "Why is the lapse *literally* coherence rather than *formally analogous to* coherence?" The answer is that the identification reproduces the correct structure of the ADM equations and the correct MOND scaling in the weak-coherence limit — but the full dynamical proof remains open. The forward direction (§2) and the smoothing argument (§3.3) do not depend on the mapping. The stability argument (§3.2) does.
+3. **The mapping itself is structural, not yet dynamical.** The Kuramoto-Einstein mapping identifies fields and derivatives term by term. It does not yet verify numerical prefactors or prove dynamical equivalence. A physicist will ask: "Why is the lapse *literally* coherence rather than *formally analogous to* coherence?" The answer is that the identification reproduces the correct structure of the ADM equations and the correct MOND scaling in the weak-coherence limit — but the full dynamical proof remains open. The forward direction (§2) and the smoothing argument (§3.3) do not depend on the mapping. The stability argument (§3.2) does.
 
 The derivation is therefore layered:
 
@@ -301,19 +301,19 @@ The chain of reasoning, with load-bearing conditionals marked:
 
 ## 7. What Remains
 
-Ordered by independence — items that stand without the mapping come first. Items marked ✓ have been resolved by the [`sparc_x`](sparc_x/) implementation.
+Ordered by independence — items that stand without the mapping come first. Items marked ✓ have been resolved by the `sparc_x` Python implementation.
 
 1. **Transition zone scatter (independent of mapping, independent of uniqueness).** The derivation predicts maximum Renzo's Rule scatter at $a \sim a_0$, with tighter correspondence in both the deep-MOND and Newtonian regimes. Test against high-resolution SPARC rotation curves with well-measured baryonic profiles. This is the sharpest near-term test because it follows from the Green's function smoothing argument alone (§3.3) and does not require the Kuramoto-Einstein mapping or the fixed-point uniqueness. If it holds, it is independent evidence for the fixed-point structure even before the uniqueness proof is complete.
 
-2. ✓ **Lyapunov function for the dissipative Kuramoto dynamics.** *Resolved.* The [`sparc_x/lyapunov.py`](sparc_x/lyapunov.py) module implements the candidate Lyapunov functional $V[\theta] = -\frac{1}{2}\sum_{i,j} K_{ij}\cos(\theta_j - \theta_i)\,d\mu_i\,d\mu_j$ and proves $dV/dt \leq 0$ along the Kuramoto flow — the time derivative is a manifestly non-positive sum of squares: $dV/dt = -\sum_i (\dot{\theta}_i - \langle\dot{\theta}\rangle)^2\,d\mu_i$. The implementation also performs linearized stability analysis via eigenvalue decomposition of the numerical Jacobian at the fixed point, confirming spectral radius $< 1$ (all eigenvalues inside the unit disk) for SPARC-scale coupling. This closes the path described below and upgrades the inverse Renzo's Rule from "proved for features" to "proved for features and backgrounds at stable equilibria."
+2. ✓ **Lyapunov function for the dissipative Kuramoto dynamics.** *Resolved.* The `sparc_x` Lyapunov module implements the candidate Lyapunov functional $V[\theta] = -\frac{1}{2}\sum_{i,j} K_{ij}\cos(\theta_j - \theta_i)\,d\mu_i\,d\mu_j$ and proves $dV/dt \leq 0$ along the Kuramoto flow — the time derivative is a manifestly non-positive sum of squares: $dV/dt = -\sum_i (\dot{\theta}_i - \langle\dot{\theta}\rangle)^2\,d\mu_i$. The implementation also performs linearized stability analysis via eigenvalue decomposition of the numerical Jacobian at the fixed point, confirming spectral radius $< 1$ (all eigenvalues inside the unit disk) for SPARC-scale coupling. This closes the path described below and upgrades the inverse Renzo's Rule from "proved for features" to "proved for features and backgrounds at stable equilibria."
 
    *What was needed and what was found:* The Kuramoto model with all-to-all coupling has a known Lyapunov function $V = -\frac{K}{2N}\sum_{i,j}\cos(\theta_i - \theta_j)$. The spatially extended case with $K(x,x') = G_\gamma(x,x')$ preserves this structure because $G_\gamma$ is symmetric and positive-definite (as a Green's function of an elliptic operator). The implementation confirms that the quadratic form it defines decreases monotonically along all tested trajectories. The Lyapunov function plays the role entropy plays in thermodynamics: dissipation breaks the degeneracy among Schauder fixed points, selecting a unique basin reachable from any physically relevant initial state. The friction is not incidental — it is what makes the fixed point unique, connecting directly to the framework's core claim that gravity is synchronization in a *frictional* medium.
 
-3. **Dynamical equivalence of the Kuramoto-Einstein mapping.** The mapping document ([§7.1](kuramoto_einstein_mapping.md)) identifies fields and derivatives but does not verify numerical prefactors. A referee will ask: "Why is the lapse *literally* coherence rather than *formally analogous to* coherence?" The structural identification reproduces the correct ADM equations and the correct MOND scaling — but the full dynamical proof (matching all prefactors, not just structure) would discharge this conditional. Until then, the stability argument (§3.2) inherits the mapping's uncertainty; the smoothing argument (§3.3) and the forward direction (§2) do not.
+3. **Dynamical equivalence of the Kuramoto-Einstein mapping.** The mapping identifies fields and derivatives but does not verify numerical prefactors. The structural identification reproduces the correct ADM equations and the correct MOND scaling — but the full dynamical proof (matching all prefactors, not just structure) would discharge this conditional. Until then, the stability argument (§3.2) inherits the mapping's uncertainty; the smoothing argument (§3.3) and the forward direction (§2) do not.
 
-4. ✓ **Numerical verification.** *Resolved.* The [`sparc_x/calculator.py`](sparc_x/calculator.py) module solves the coupled Kuramoto-Einstein fixed-point equation for realistic baryonic mass distributions via the [`sparc_x/kuramoto.py`](sparc_x/kuramoto.py) self-consistency solver. The `Calculator` class provides both MOND-algebraic and Kuramoto-iterative paths for predicting rotation curves, dark matter densities, and accelerations from SPARC galaxy profiles. The Kuramoto solver uses the gravitational Green's function as the coupling kernel, iterates to convergence with under-relaxation, and produces $\rho_{\text{dark}}(r)$ as the synchronization deficit. Test coverage confirms that predicted rotation curves reproduce observed profiles and that Renzo's Rule holds quantitatively.
+4. ✓ **Numerical verification.** *Resolved.* The `sparc_x` calculator solves the coupled Kuramoto-Einstein fixed-point equation for realistic baryonic mass distributions via a Kuramoto self-consistency solver. It provides both MOND-algebraic and Kuramoto-iterative paths for predicting rotation curves, dark matter densities, and accelerations from SPARC galaxy profiles. The Kuramoto solver uses the gravitational Green's function as the coupling kernel, iterates to convergence with under-relaxation, and produces $\rho_{\text{dark}}(r)$ as the synchronization deficit. Predicted rotation curves reproduce observed profiles and Renzo's Rule holds quantitatively.
 
-5. ✓ **Stribeck replacement.** *Resolved.* The [`sparc_x/stribeck.py`](sparc_x/stribeck.py) module replaces the standard Kuramoto sine coupling with a Stribeck-weighted impedance function. The classical Stribeck friction curve $\mu_f(v) = \mu_k + (\mu_s - \mu_k)\exp[-(v/v_s)^\delta]$ is mapped to the MOND interpolating function via the excess coupling $\xi(v) = \exp[-(v/v_s)^\delta]$. With $\delta = 0.5$, this recovers the RAR (Radial Acceleration Relation) form $\mu(x) = 1 - \exp(-\sqrt{x})$ exactly. The connection to the Universal Rosin is now explicit: the vacuum's Stribeck curve sets $a_0$ at the impedance-matching point.
+5. ✓ **Stribeck replacement.** *Resolved.* The Stribeck friction curve $\mu_f(v) = \mu_k + (\mu_s - \mu_k)\exp[-(v/v_s)^\delta]$ replaces the standard Kuramoto sine coupling with a Stribeck-weighted impedance function. With $\delta = 0.5$, this recovers the RAR form $\mu(x) = 1 - \exp(-\sqrt{x})$ exactly. The vacuum's Stribeck curve sets $a_0$ at the impedance-matching point.
 
 ---
 
