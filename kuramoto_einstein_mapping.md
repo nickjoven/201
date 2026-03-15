@@ -2,13 +2,13 @@
 
 **N. Joven** ([ORCID: 0009-0008-0679-0812](https://orcid.org/0009-0008-0679-0812))
 March 2026
-*Technical supplement to [Gravity as Synchronization in a Frictional Medium](joven_unifying_framework.md)*
+*Technical supplement to "Gravity as Synchronization in a Frictional Medium" (Joven, 2026)*
 
 ---
 
 ## Motivation
 
-The [main paper](joven_unifying_framework.md) establishes qualitative correspondences: the Kuramoto synchronization threshold $K_c$ maps to the MOND transition $a_0$, the metric $g_{\mu\nu}$ is the local friction coefficient, and the ADM lapse and shift are the duty cycle and phase offset. But the derivatives remain implicit. This document works through the mapping component by component, writing down the explicit time and spatial derivatives on both sides.
+The main paper ("Gravity as Synchronization in a Frictional Medium," Joven, 2026) establishes qualitative correspondences: the Kuramoto synchronization threshold $K_c$ maps to the MOND transition $a_0$, the metric $g_{\mu\nu}$ is the local friction coefficient, and the ADM lapse and shift are the duty cycle and phase offset. But the derivatives remain implicit. This document works through the mapping component by component, writing down the explicit time and spatial derivatives on both sides.
 
 The goal is to show that the ADM evolution equations — the dynamical content of Einstein's field equations — have a natural reading as continuum Kuramoto dynamics on a manifold, and to identify precisely where the two systems constrain each other.
 
@@ -281,15 +281,15 @@ The explicit mapping imposes requirements in both directions:
 
 ## 7. Next Steps
 
-This mapping is kinematic — it identifies the fields and their derivatives. The [formal derivation of Renzo's Rule](renzos_rule_derivation.md) uses this mapping to close three gaps: specifying the variational principle (Einstein-Hilbert action in ADM form), resolving the primal-dual coupling (Kuramoto self-consistency fixed point), and proving the inverse direction ($\rho_{\text{dark}}$ is a functional of $\rho_{\text{bary}}$). Items marked ✓ have been resolved by the [`sparc_x`](sparc_x/) implementation. What remains beyond that:
+This mapping is kinematic — it identifies the fields and their derivatives. The formal derivation of Renzo's Rule ("Renzo's Rule and Its Inverse," Joven, 2026) uses this mapping to close three gaps: specifying the variational principle (Einstein-Hilbert action in ADM form), resolving the primal-dual coupling (Kuramoto self-consistency fixed point), and proving the inverse direction ($\rho_{\text{dark}}$ is a functional of $\rho_{\text{bary}}$). What remains:
 
-1. **Dynamical equivalence.** Show that the Kuramoto evolution equations, with coupling kernel = gravitational Green's function and $r \leftrightarrow N$, reproduce the ADM evolution equations as an identity, not just a structural parallel. This requires fixing the normalization and verifying all numerical prefactors. (The [Renzo's Rule derivation](renzos_rule_derivation.md) confirms the variational principle but does not verify prefactors.)
+1. **Dynamical equivalence.** Show that the Kuramoto evolution equations, with coupling kernel = gravitational Green's function and $r \leftrightarrow N$, reproduce the ADM evolution equations as an identity, not just a structural parallel. This requires fixing the normalization and verifying all numerical prefactors. (The Renzo's Rule derivation confirms the variational principle but does not verify prefactors.)
 
-2. ✓ **The Stribeck function.** *Resolved.* The [`sparc_x/stribeck.py`](sparc_x/stribeck.py) module replaces the standard Kuramoto $\sin(\psi - \theta)$ coupling with a Stribeck-weighted impedance function. The classical Stribeck friction curve $\mu_f(v) = \mu_k + (\mu_s - \mu_k)\exp[-(v/v_s)^\delta]$ maps to the MOND interpolating function via the excess coupling $\xi(v) = \exp[-(v/v_s)^\delta]$. With $\delta = 0.5$, this recovers the RAR form $\mu(x) = 1 - \exp(-\sqrt{x})$ exactly — closing the formal gap between Kuramoto sine coupling and the observed MOND phenomenology.
+2. ✓ **The Stribeck function.** *Resolved.* The Stribeck friction curve $\mu_f(v) = \mu_k + (\mu_s - \mu_k)\exp[-(v/v_s)^\delta]$ replaces the standard Kuramoto $\sin(\psi - \theta)$ coupling with a Stribeck-weighted impedance function. With $\delta = 0.5$, this recovers the RAR form $\mu(x) = 1 - \exp(-\sqrt{x})$ exactly — closing the formal gap between Kuramoto sine coupling and the observed MOND phenomenology.
 
-3. **Strong-field regime.** The mapping above works perturbatively (small phase gradients). Near black holes, $r \to 0$, and the perturbative expansion of $C_{ij}$ breaks down. The Feigenbaum cascade (period-doubling toward the stuck singularity) should emerge from the Kuramoto dynamics in the $r \to 0$ limit — this would connect §5 of the main paper to the derivative-level mapping.
+3. **Strong-field regime.** The mapping works perturbatively (small phase gradients). Near black holes, $r \to 0$, and the perturbative expansion of $C_{ij}$ breaks down. The Feigenbaum cascade (period-doubling toward the stuck singularity) should emerge from the Kuramoto dynamics in the $r \to 0$ limit.
 
-4. **Gravitational waves.** Linearizing the mapping around flat space ($r = 1$, $\partial_i \theta = 0$) should produce wave equations for coherence perturbations that match the linearized Einstein equations (gravitational waves). The prediction: gravitational waves are propagating synchronization disturbances in the vacuum.
+4. **Gravitational waves.** Linearizing the mapping around flat space ($r = 1$, $\partial_i \theta = 0$) should produce wave equations for coherence perturbations that match the linearized Einstein equations. The prediction: gravitational waves are propagating synchronization disturbances in the vacuum.
 
 ---
 
