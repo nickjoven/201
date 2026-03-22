@@ -10,11 +10,11 @@ March 2026
 
 The companion paper ("Stick-Slip Dynamics and the Dark Matter Dual," Joven, 2026) §4.3 derives Renzo's Rule — every feature in the baryonic luminosity profile is mirrored in the rotation curve — from complementary slackness. But that derivation is conditional: *if* the gravitational field solves a locally-defined constrained optimization, *then* the KKT conditions guarantee the coupling. Three things remain open:
 
-1. **The objective function.** KKT conditions are consequences of an optimization problem. What is being minimized, subject to what?
-2. **The primal-dual coupling.** The companion notebook fixes the primal variables and updates only the dual. The coupled fixed-point — where the metric responds to $\lambda$ and $\lambda$ responds to the metric — is undemonstrated.
+1. **The objective function.** KKT conditions are consequences of an optimization problem. What is being minimized, subject to what? **Resolved** — the [harmonics](https://github.com/nickjoven/harmonics) synchronization cost framework ([`FRAMEWORK.md`](https://github.com/nickjoven/harmonics/blob/main/sync_cost/FRAMEWORK.md)) identifies the objective: minimize total synchronization cost (coupling + drift), subject to the Hamiltonian constraint. The KKT conditions of this optimization produce the dark-matter dual variable.
+2. **The primal-dual coupling.** The companion notebook fixes the primal variables and updates only the dual. The coupled fixed-point — where the metric responds to $\lambda$ and $\lambda$ responds to the metric — is undemonstrated. *Partial progress* — the synchronization cost framework establishes the variational structure from which primal-dual coupling follows, but the coupled fixed-point iteration on observed profiles remains undemonstrated.
 3. **The inverse.** Renzo's Rule says baryonic features produce rotation curve features. The inverse — every rotation curve feature has a baryonic origin — requires ruling out phantom structure in $\lambda(r)$ that has no baryonic counterpart.
 
-The Kuramoto-Einstein mapping (Joven, 2026) provides ingredients toward all three. This document closes the first two cleanly and advances the third — but with a residual gap that we flag explicitly (§3.4).
+The Kuramoto-Einstein mapping (Joven, 2026) provides ingredients toward all three. This document closes the first two cleanly and advances the third — but with a residual gap that we flag explicitly (§3.4). The [harmonics](https://github.com/nickjoven/harmonics) repository extends this further by identifying the objective function from synchronization cost principles.
 
 ---
 
@@ -301,7 +301,7 @@ The chain of reasoning, with load-bearing conditionals marked:
 
 ## 7. What Remains
 
-Ordered by independence — items that stand without the mapping come first. Items marked ✓ have been resolved by the `sparc_x` Python implementation.
+Ordered by independence — items that stand without the mapping come first. Items marked ✓ have been resolved by the `sparc_x` Python implementation or the [harmonics](https://github.com/nickjoven/harmonics) synchronization cost framework.
 
 1. **Transition zone scatter (independent of mapping, independent of uniqueness).** The derivation predicts maximum Renzo's Rule scatter at $a \sim a_0$, with tighter correspondence in both the deep-MOND and Newtonian regimes. Test against high-resolution SPARC rotation curves with well-measured baryonic profiles. This is the sharpest near-term test because it follows from the Green's function smoothing argument alone (§3.3) and does not require the Kuramoto-Einstein mapping or the fixed-point uniqueness. If it holds, it is independent evidence for the fixed-point structure even before the uniqueness proof is complete.
 
