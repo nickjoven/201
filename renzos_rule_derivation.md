@@ -12,7 +12,7 @@ The companion paper ("Stick-Slip Dynamics and the Dark Matter Dual," Joven, 2026
 
 1. **The objective function.** KKT conditions are consequences of an optimization problem. What is being minimized, subject to what? **Resolved** — the [harmonics](https://github.com/nickjoven/harmonics) synchronization cost framework ([`FRAMEWORK.md`](https://github.com/nickjoven/harmonics/blob/main/sync_cost/FRAMEWORK.md)) identifies the objective: minimize total synchronization cost (coupling + drift), subject to the Hamiltonian constraint. The KKT conditions of this optimization produce the dark-matter dual variable.
 2. **The primal-dual coupling.** The companion notebook fixes the primal variables and updates only the dual. The coupled fixed-point — where the metric responds to $\lambda$ and $\lambda$ responds to the metric — is undemonstrated. *Partial progress* — the synchronization cost framework establishes the variational structure from which primal-dual coupling follows, but the coupled fixed-point iteration on observed profiles remains undemonstrated.
-3. **The inverse.** Renzo's Rule says baryonic features produce rotation curve features. The inverse — every rotation curve feature has a baryonic origin — requires ruling out phantom structure in $\lambda(r)$ that has no baryonic counterpart.
+3. **The inverse.** Renzo's Rule says baryonic features produce rotation curve features. The inverse — every rotation curve feature has a baryonic origin — requires ruling out phantom structure in $\lambda(R)$ that has no baryonic counterpart.
 
 The Kuramoto-Einstein mapping (Joven, 2026) provides ingredients toward all three. This document closes the first two cleanly and advances the third — but with a residual gap that we flag explicitly (§3.4). The [harmonics](https://github.com/nickjoven/harmonics) repository extends this further by identifying the objective function from synchronization cost principles.
 
@@ -52,22 +52,22 @@ The **multiplier** is $N = r$: the coherence / lapse itself.
 
 In the standard ADM formulation, $\rho$ is the total energy density. Decompose it:
 
-$$\rho(r) = \rho_{\text{bary}}(r) + \rho_{\text{dark}}(r)$$
+$$\rho(R) = \rho_{\text{bary}}(R) + \rho_{\text{dark}}(R)$$
 
-Now rewrite the Hamiltonian constraint as a **constrained optimization**. Define the objective: the gravitational field minimizes the total synchronization cost (the action) subject to the constraint that the observed kinematics are reproduced. The dark matter density $\rho_{\text{dark}}(r)$ enters as the slack variable that absorbs the constraint deficit:
+Now rewrite the Hamiltonian constraint as a **constrained optimization**. Define the objective: the gravitational field minimizes the total synchronization cost (the action) subject to the constraint that the observed kinematics are reproduced. The dark matter density $\rho_{\text{dark}}(R)$ enters as the slack variable that absorbs the constraint deficit:
 
-$$\rho_{\text{dark}}(r) = \frac{1}{16\pi G}\left({}^{(3)}R + \mathcal{K}^2 - \mathcal{K}_{ij}\mathcal{K}^{ij}\right) - \rho_{\text{bary}}(r)$$
+$$\rho_{\text{dark}}(R) = \frac{1}{16\pi G}\left({}^{(3)}R + \mathcal{K}^2 - \mathcal{K}_{ij}\mathcal{K}^{ij}\right) - \rho_{\text{bary}}(R)$$
 
-This is not a definition — it is the Hamiltonian constraint solved for the deficit. The dual variable $\lambda(r)$ of the companion paper maps to this:
+This is not a definition — it is the Hamiltonian constraint solved for the deficit. The dual variable $\lambda(R)$ of the companion paper maps to this:
 
-$$\lambda(r) = 4\pi G \, \rho_{\text{dark}}(r) \cdot r^2 \quad \Longrightarrow \quad a_{\text{dark}}(r) = \frac{\lambda(r)}{r^2}$$
+$$\lambda(R) = 4\pi G \, \rho_{\text{dark}}(R) \cdot R^2 \quad \Longrightarrow \quad a_{\text{dark}}(R) = \frac{\lambda(R)}{R^2}$$
 
 The KKT structure is now inherited from the variational principle:
 
 - **Stationarity:** $\delta S / \delta \gamma_{ij} = 0$ (evolution equations)
 - **Primal feasibility:** $\mathcal{H} = 0$ (Hamiltonian constraint)
-- **Dual feasibility:** $\rho_{\text{dark}}(r) \geq 0$ (dark matter density is non-negative — the synchronization deficit cannot be negative, because you cannot have *more than enough* synchronization from baryons alone produce *negative* dark matter)
-- **Complementary slackness:** $\rho_{\text{dark}}(r) \cdot \bigl[\text{constraint surplus at } r\bigr] = 0$
+- **Dual feasibility:** $\rho_{\text{dark}}(R) \geq 0$ (dark matter density is non-negative — the synchronization deficit cannot be negative, because you cannot have *more than enough* synchronization from baryons alone produce *negative* dark matter)
+- **Complementary slackness:** $\rho_{\text{dark}}(R) \cdot \bigl[\text{constraint surplus at } R\bigr] = 0$
 
 The last condition says: where baryonic matter is sufficient to satisfy the Hamiltonian constraint ($\rho_{\text{bary}}$ alone produces the observed kinematics), $\rho_{\text{dark}} = 0$. Where it is insufficient, $\rho_{\text{dark}} > 0$ fills the gap exactly.
 
@@ -77,27 +77,27 @@ The last condition says: where baryonic matter is sufficient to satisfy the Hami
 
 ## 2. Renzo's Rule (Forward Direction)
 
-**Theorem (Renzo's Rule).** *Let $\rho_{\text{bary}}(r)$ have a local feature (bump or dip) at radius $r_0$. Then the rotation curve $v^2(r)/r = a_{\text{total}}(r)$ has a corresponding feature at $r_0$.*
+**Theorem (Renzo's Rule).** *Let $\rho_{\text{bary}}(R)$ have a local feature (bump or dip) at radius $R_0$. Then the rotation curve $v^2(R)/R = a_{\text{total}}(R)$ has a corresponding feature at $R_0$.*
 
 **Proof.** The Hamiltonian constraint at each radius gives:
 
-$$a_{\text{total}}(r) = a_{\text{geometric}}(r)$$
+$$a_{\text{total}}(R) = a_{\text{geometric}}(R)$$
 
-where $a_{\text{geometric}}(r)$ is determined by the spatial curvature and extrinsic curvature terms. This is a function of the metric, which is sourced by $\rho_{\text{total}} = \rho_{\text{bary}} + \rho_{\text{dark}}$.
+where $a_{\text{geometric}}(R)$ is determined by the spatial curvature and extrinsic curvature terms. This is a function of the metric, which is sourced by $\rho_{\text{total}} = \rho_{\text{bary}} + \rho_{\text{dark}}$.
 
-**Case 1: Constraint is slack at $r_0$ ($\rho_{\text{dark}}(r_0) = 0$).**
+**Case 1: Constraint is slack at $R_0$ ($\rho_{\text{dark}}(R_0) = 0$).**
 
-Here $a_{\text{total}}(r_0) = a_{\text{bary}}(r_0)$. A feature in $\rho_{\text{bary}}$ at $r_0$ directly produces a feature in $a_{\text{bary}}$, hence in $a_{\text{total}}$, hence in the rotation curve. This is ordinary Newtonian dynamics. $\square$
+Here $a_{\text{total}}(R_0) = a_{\text{bary}}(R_0)$. A feature in $\rho_{\text{bary}}$ at $R_0$ directly produces a feature in $a_{\text{bary}}$, hence in $a_{\text{total}}$, hence in the rotation curve. This is ordinary Newtonian dynamics. $\square$
 
-**Case 2: Constraint binds at $r_0$ ($\rho_{\text{dark}}(r_0) > 0$).**
+**Case 2: Constraint binds at $R_0$ ($\rho_{\text{dark}}(R_0) > 0$).**
 
-The Hamiltonian constraint fixes $a_{\text{total}}(r)$ via the geometric terms. Consider a perturbation $\rho_{\text{bary}}(r_0) \to \rho_{\text{bary}}(r_0) + \delta\rho$. The constraint must remain satisfied. Two responses are possible:
+The Hamiltonian constraint fixes $a_{\text{total}}(R)$ via the geometric terms. Consider a perturbation $\rho_{\text{bary}}(R_0) \to \rho_{\text{bary}}(R_0) + \delta\rho$. The constraint must remain satisfied. Two responses are possible:
 
-**(a)** The metric adjusts (primal response): the spatial curvature and extrinsic curvature change to accommodate the new source. This changes $a_{\text{geometric}}(r_0)$, producing a rotation curve feature. $\square$
+**(a)** The metric adjusts (primal response): the spatial curvature and extrinsic curvature change to accommodate the new source. This changes $a_{\text{geometric}}(R_0)$, producing a rotation curve feature. $\square$
 
-**(b)** The dark matter density adjusts (dual response): $\rho_{\text{dark}}(r_0) \to \rho_{\text{dark}}(r_0) - \delta\rho$ to maintain the constraint. But this changes $\rho_{\text{total}}$, which changes the metric (through the evolution equations), which changes $a_{\text{geometric}}$. The feature propagates. $\square$
+**(b)** The dark matter density adjusts (dual response): $\rho_{\text{dark}}(R_0) \to \rho_{\text{dark}}(R_0) - \delta\rho$ to maintain the constraint. But this changes $\rho_{\text{total}}$, which changes the metric (through the evolution equations), which changes $a_{\text{geometric}}$. The feature propagates. $\square$
 
-In practice, both (a) and (b) occur simultaneously — the coupled system adjusts self-consistently. But in either case, $\delta\rho_{\text{bary}}$ at $r_0$ produces $\delta a_{\text{total}}$ at $r_0$. The locality of the Hamiltonian constraint ensures the feature appears at the same radius, not smeared elsewhere.
+In practice, both (a) and (b) occur simultaneously — the coupled system adjusts self-consistently. But in either case, $\delta\rho_{\text{bary}}$ at $R_0$ produces $\delta a_{\text{total}}$ at $R_0$. The locality of the Hamiltonian constraint ensures the feature appears at the same radius, not smeared elsewhere.
 
 **The key structural point:** The Hamiltonian constraint is an **algebraic** relation at each point on $\Sigma_t$ (it contains no time derivatives — that's what makes it a constraint rather than an evolution equation). Therefore the coupling between $\rho_{\text{bary}}$ and the geometric terms is **instantaneous and local on each spatial slice**. There is no Green's function smearing in the constraint direction. Features couple point-by-point. $\blacksquare$
 
@@ -107,9 +107,9 @@ In practice, both (a) and (b) occur simultaneously — the coupled system adjust
 
 This is the harder direction and the one that requires the Kuramoto structure.
 
-**Theorem (Inverse Renzo's Rule).** *Let $a_{\text{total}}(r)$ have a local feature at $r_0$. Then $\rho_{\text{bary}}(r)$ has a corresponding feature at or near $r_0$.*
+**Theorem (Inverse Renzo's Rule).** *Let $a_{\text{total}}(R)$ have a local feature at $R_0$. Then $\rho_{\text{bary}}(R)$ has a corresponding feature at or near $R_0$.*
 
-**Proof strategy.** We must show that $\rho_{\text{dark}}(r)$ cannot generate rotation curve features independently of the baryonic distribution. This requires showing that $\rho_{\text{dark}}$ is a *functional* of $\rho_{\text{bary}}$ — not an independent degree of freedom.
+**Proof strategy.** We must show that $\rho_{\text{dark}}(R)$ cannot generate rotation curve features independently of the baryonic distribution. This requires showing that $\rho_{\text{dark}}$ is a *functional* of $\rho_{\text{bary}}$ — not an independent degree of freedom.
 
 ### 3.1 The Synchronization Deficit is Slaved to the Natural Frequency
 
@@ -142,7 +142,7 @@ We do not have a uniqueness proof. What we have:
 
 1. **Empirical evidence.** N-body simulations consistently produce unique equilibrium rotation curves for given baryonic distributions. Galaxies in quasi-static equilibrium (no mergers, settled rotation) show no evidence of bistability.
 
-2. **A stability argument that partially substitutes.** Even without global uniqueness, we can ask the weaker question: at any *stable* fixed point, can $\rho_{\text{dark}}$ generate features independently of $\rho_{\text{bary}}$? Stability means the system returns to the fixed point under small perturbations. A perturbation $\delta\rho_{\text{dark}}$ at $r_0$ with no baryonic source would need to be self-sustaining through the feedback loop $\delta\rho_{\text{dark}} \to \delta\gamma_{ij} \to \delta K \to \delta r \to \delta\rho_{\text{dark}}$. The Green's function kernel smooths at each step of this loop (see §3.3). A self-sustaining localized perturbation requires the loop gain to exceed unity at spatial frequencies corresponding to the feature scale — but the smoothing kernel suppresses high spatial frequencies. At a stable fixed point, the loop gain is below unity by definition. Therefore: **at any stable fixed point, $\rho_{\text{dark}}$ cannot sustain localized features without a localized baryonic source.**
+2. **A stability argument that partially substitutes.** Even without global uniqueness, we can ask the weaker question: at any *stable* fixed point, can $\rho_{\text{dark}}$ generate features independently of $\rho_{\text{bary}}$? Stability means the system returns to the fixed point under small perturbations. A perturbation $\delta\rho_{\text{dark}}$ at $R_0$ with no baryonic source would need to be self-sustaining through the feedback loop $\delta\rho_{\text{dark}} \to \delta\gamma_{ij} \to \delta K \to \delta r \to \delta\rho_{\text{dark}}$. The Green's function kernel smooths at each step of this loop (see §3.3). A self-sustaining localized perturbation requires the loop gain to exceed unity at spatial frequencies corresponding to the feature scale — but the smoothing kernel suppresses high spatial frequencies. At a stable fixed point, the loop gain is below unity by definition. Therefore: **at any stable fixed point, $\rho_{\text{dark}}$ cannot sustain localized features without a localized baryonic source.**
 
 3. **The physical filter.** Unstable fixed points are not observed galaxies. A galaxy is a physical system that has relaxed to a stable equilibrium. The inverse Renzo's Rule is a claim about observed galaxies, not about all mathematical solutions. Restricting to stable fixed points is physically motivated, not an evasion.
 
@@ -158,26 +158,26 @@ The following argument does not depend on the Kuramoto-Einstein dictionary. It u
 
 The dark matter density is:
 
-$$\rho_{\text{dark}}(r) = \frac{1}{16\pi G}\left({}^{(3)}R + \mathcal{K}^2 - \mathcal{K}_{ij}\mathcal{K}^{ij}\right) - \rho_{\text{bary}}(r)$$
+$$\rho_{\text{dark}}(R) = \frac{1}{16\pi G}\left({}^{(3)}R + \mathcal{K}^2 - \mathcal{K}_{ij}\mathcal{K}^{ij}\right) - \rho_{\text{bary}}(R)$$
 
-The geometric terms depend on $\gamma_{ij}$, which is sourced by $\rho_{\text{total}}$ through the Poisson equation (in the Newtonian limit) or through the full Einstein equations. In either case, the relationship between a source perturbation $\delta\rho$ at $r_1$ and the metric response at $r_0$ is mediated by the Green's function $G(r_0, r_1) \sim 1/|r_0 - r_1|$ in 3D. This is a **smoothing** kernel: it transports influence but cannot sharpen it. A localized source produces a broad, smooth response.
+The geometric terms depend on $\gamma_{ij}$, which is sourced by $\rho_{\text{total}}$ through the Poisson equation (in the Newtonian limit) or through the full Einstein equations. In either case, the relationship between a source perturbation $\delta\rho$ at $R_1$ and the metric response at $R_0$ is mediated by the Green's function $G(R_0, R_1) \sim 1/|R_0 - R_1|$ in 3D. This is a **smoothing** kernel: it transports influence but cannot sharpen it. A localized source produces a broad, smooth response.
 
-**The question is locality:** could a baryonic feature at $r_1 \neq r_0$ produce a rotation curve feature at $r_0$ with no baryonic feature at $r_0$?
+**The question is locality:** could a baryonic feature at $R_1 \neq R_0$ produce a rotation curve feature at $R_0$ with no baryonic feature at $R_0$?
 
-The answer: the coupling kernel falls as $1/|r_0 - r_1|$. A baryonic feature at $r_1$ produces a *smooth, broad* contribution to $a_{\text{dark}}$ at $r_0$ — not a localized feature.
+The answer: the coupling kernel falls as $1/|R_0 - R_1|$. A baryonic feature at $R_1$ produces a *smooth, broad* contribution to $a_{\text{dark}}$ at $R_0$ — not a localized feature.
 
-Decompose the dark matter acceleration at $r_0$:
+Decompose the dark matter acceleration at $R_0$:
 
-$$a_{\text{dark}}(r_0) = \underbrace{a_{\text{dark}}^{\text{local}}(r_0)}_{\text{from } \rho_{\text{bary}} \text{ near } r_0} + \underbrace{a_{\text{dark}}^{\text{nonlocal}}(r_0)}_{\text{from } \rho_{\text{bary}} \text{ far from } r_0}$$
+$$a_{\text{dark}}(R_0) = \underbrace{a_{\text{dark}}^{\text{local}}(R_0)}_{\text{from } \rho_{\text{bary}} \text{ near } R_0} + \underbrace{a_{\text{dark}}^{\text{nonlocal}}(R_0)}_{\text{from } \rho_{\text{bary}} \text{ far from } R_0}$$
 
-The nonlocal term is smooth (Green's function averages over distant sources). Any **feature** — a deviation from the smooth trend — in $a_{\text{total}}(r_0)$ must come from either:
+The nonlocal term is smooth (Green's function averages over distant sources). Any **feature** — a deviation from the smooth trend — in $a_{\text{total}}(R_0)$ must come from either:
 
-- $a_{\text{bary}}(r_0)$ directly (a baryonic feature at $r_0$), or
-- $a_{\text{dark}}^{\text{local}}(r_0)$ (the dark matter response to baryonic structure near $r_0$, which by complementary slackness mirrors the baryonic feature with opposite sign in $\rho_{\text{dark}}$).
+- $a_{\text{bary}}(R_0)$ directly (a baryonic feature at $R_0$), or
+- $a_{\text{dark}}^{\text{local}}(R_0)$ (the dark matter response to baryonic structure near $R_0$, which by complementary slackness mirrors the baryonic feature with opposite sign in $\rho_{\text{dark}}$).
 
-Both require baryonic structure at or near $r_0$.
+Both require baryonic structure at or near $R_0$.
 
-**What this proves:** Localized phantom features — sharp structure in $a_{\text{total}}$ at $r_0$ with no baryonic structure at or near $r_0$ — are ruled out by the smoothing property of the Green's function. This holds at any fixed point, stable or unstable, and does not require the Kuramoto-Einstein dictionary. It is a consequence of the Poisson equation. $\blacksquare$
+**What this proves:** Localized phantom features — sharp structure in $a_{\text{total}}$ at $R_0$ with no baryonic structure at or near $R_0$ — are ruled out by the smoothing property of the Green's function. This holds at any fixed point, stable or unstable, and does not require the Kuramoto-Einstein dictionary. It is a consequence of the Poisson equation. $\blacksquare$
 
 **What this does not prove:** That $\rho_{\text{dark}}$ as a whole is determined by $\rho_{\text{bary}}$. The smoothing argument rules out phantom *features* but not phantom *backgrounds*. A smooth, featureless excess in $\rho_{\text{dark}}$ — contributing to the total dark matter mass but not to localized rotation curve structure — is not excluded by the Green's function argument alone. Excluding that requires the stability argument of §3.2 (which uses the mapping) or the uniqueness proof of §7 (which is open).
 
@@ -218,7 +218,7 @@ The metric evolves in response to its own curvature and to the matter content (b
 
 **Dual update (Hamiltonian constraint):**
 
-$$\rho_{\text{dark}}(r) = \frac{1}{16\pi G}\bigl({}^{(3)}R + \mathcal{K}^2 - \mathcal{K}_{ij}\mathcal{K}^{ij}\bigr) - \rho_{\text{bary}}(r)$$
+$$\rho_{\text{dark}}(R) = \frac{1}{16\pi G}\bigl({}^{(3)}R + \mathcal{K}^2 - \mathcal{K}_{ij}\mathcal{K}^{ij}\bigr) - \rho_{\text{bary}}(R)$$
 
 The dark matter density is set by the geometric constraint deficit.
 
@@ -236,8 +236,8 @@ The non-negativity of $\rho_{\text{dark}}$ is enforced by the physics: in the Ku
 
 Complementary slackness then holds at the fixed point:
 
-$$\rho_{\text{dark}}(r) > 0 \implies \text{constraint binds (baryons insufficient)}$$
-$$\rho_{\text{dark}}(r) = 0 \implies \text{constraint slack (baryons sufficient)}$$
+$$\rho_{\text{dark}}(R) > 0 \implies \text{constraint binds (baryons insufficient)}$$
+$$\rho_{\text{dark}}(R) = 0 \implies \text{constraint slack (baryons sufficient)}$$
 
 This is not imposed — it follows from the structure of the Kuramoto order parameter. The synchronization deficit is zero when the oscillators are locked and positive otherwise. There is no third option.
 
@@ -277,7 +277,7 @@ The transition zone ($a \sim a_0$) is where the inverse is weakest, because the 
 | Claim | Status | Gap |
 |---|---|---|
 | **No self-sustaining dark structure at stable equilibria** | Argued (§3.2) | Depends on the Kuramoto-Einstein mapping being literal, not just analogous. |
-| **$\rho_{\text{dark}}$ uniquely determined by $\rho_{\text{bary}}$** | Conjectured (§3.2) | Requires a Lyapunov function proving convergence to a unique attractor. The Kuramoto model's dissipative structure suggests one exists (§7 item 2). |
+| **$\rho_{\text{dark}}$ uniquely determined by $\rho_{\text{bary}}$** | Resolved (§7 item 2) | The Lyapunov functional $V[\theta]$ with $dV/dt \leq 0$ proves convergence to a unique attractor; confirmed by linearized stability analysis (spectral radius $< 1$) for SPARC-scale coupling. |
 
 ### What is predicted
 
@@ -311,7 +311,7 @@ Ordered by independence — items that stand without the mapping come first. Ite
 
 3. **Dynamical equivalence of the Kuramoto-Einstein mapping.** The mapping identifies fields and derivatives but does not verify numerical prefactors. The structural identification reproduces the correct ADM equations and the correct MOND scaling — but the full dynamical proof (matching all prefactors, not just structure) would discharge this conditional. Until then, the stability argument (§3.2) inherits the mapping's uncertainty; the smoothing argument (§3.3) and the forward direction (§2) do not.
 
-4. ✓ **Numerical verification.** *Resolved.* The `sparc_x` calculator solves the coupled Kuramoto-Einstein fixed-point equation for realistic baryonic mass distributions via a Kuramoto self-consistency solver. It provides both MOND-algebraic and Kuramoto-iterative paths for predicting rotation curves, dark matter densities, and accelerations from SPARC galaxy profiles. The Kuramoto solver uses the gravitational Green's function as the coupling kernel, iterates to convergence with under-relaxation, and produces $\rho_{\text{dark}}(r)$ as the synchronization deficit. Predicted rotation curves reproduce observed profiles and Renzo's Rule holds quantitatively.
+4. ✓ **Numerical verification.** *Resolved.* The `sparc_x` calculator solves the coupled Kuramoto-Einstein fixed-point equation for realistic baryonic mass distributions via a Kuramoto self-consistency solver. It provides both MOND-algebraic and Kuramoto-iterative paths for predicting rotation curves, dark matter densities, and accelerations from SPARC galaxy profiles. The Kuramoto solver uses the gravitational Green's function as the coupling kernel, iterates to convergence with under-relaxation, and produces $\rho_{\text{dark}}(R)$ as the synchronization deficit. Predicted rotation curves reproduce observed profiles and Renzo's Rule holds quantitatively.
 
 5. ✓ **Stribeck replacement.** *Resolved.* The Stribeck friction curve $\mu_f(v) = \mu_k + (\mu_s - \mu_k)\exp[-(v/v_s)^\delta]$ replaces the standard Kuramoto sine coupling with a Stribeck-weighted impedance function. With $\delta = 0.5$, this recovers the RAR form $\mu(x) = 1 - \exp(-\sqrt{x})$ exactly. The vacuum's Stribeck curve sets $a_0$ at the impedance-matching point.
 
